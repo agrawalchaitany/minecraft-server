@@ -1,0 +1,220 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="320" viewBox="0 0 1200 320" role="img" aria-label="Minecraft Server: a self-built, production-ready Paper server for Docker">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1a10"/><stop offset="1" stop-color="#11251a"/></linearGradient><radialGradient id="glow" cx="0.2" cy="0.55" r="0.45"><stop offset="0" stop-color="#2ea043" stop-opacity="0.28"/><stop offset="1" stop-color="#2ea043" stop-opacity="0"/></radialGradient><pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#ffffff" stroke-opacity="0.035"/></pattern><clipPath id="card"><rect width="1200" height="320" rx="16"/></clipPath></defs>
+<g clip-path="url(#card)">
+<rect width="1200" height="320" fill="url(#bg)"/><rect width="1200" height="320" fill="url(#grid)"/><rect width="1200" height="320" fill="url(#glow)"/>
+<g transform="matrix(9 -5.175 9 5.175 163 112)" shape-rendering="crispEdges">
+<rect x="0" y="0" width="1.04" height="1.04" fill="#4f9134"/>
+<rect x="1" y="0" width="1.04" height="1.04" fill="#5fa83a"/>
+<rect x="2" y="0" width="1.04" height="1.04" fill="#4f9134"/>
+<rect x="3" y="0" width="1.04" height="1.04" fill="#6bb944"/>
+<rect x="4" y="0" width="1.04" height="1.04" fill="#5fa83a"/>
+<rect x="5" y="0" width="1.04" height="1.04" fill="#5fa83a"/>
+<rect x="6" y="0" width="1.04" height="1.04" fill="#77c24e"/>
+<rect x="7" y="0" width="1.04" height="1.04" fill="#77c24e"/>
+<rect x="0" y="1" width="1.04" height="1.04" fill="#5fa83a"/>
+<rect x="1" y="1" width="1.04" height="1.04" fill="#6bb944"/>
+<rect x="2" y="1" width="1.04" height="1.04" fill="#5fa83a"/>
+<rect x="3" y="1" width="1.04" height="1.04" fill="#4f9134"/>
+<rect x="4" y="1" width="1.04" height="1.04" fill="#77c24e"/>
+<rect x="5" y="1" width="1.04" height="1.04" fill="#5fa83a"/>
+<rect x="6" y="1" width="1.04" height="1.04" fill="#4f9134"/>
+<rect x="7" y="1" width="1.04" height="1.04" fill="#5fa83a"/>
+<rect x="0" y="2" width="1.04" height="1.04" fill="#6bb944"/>
+<rect x="1" y="2" width="1.04" height="1.04" fill="#4f9134"/>
+<rect x="2" y="2" width="1.04" height="1.04" fill="#5fa83a"/>
+<rect x="3" y="2" width="1.04" height="1.04" fill="#4f9134"/>
+<rect x="4" y="2" width="1.04" height="1.04" fill="#4f9134"/>
+<rect x="5" y="2" width="1.04" height="1.04" fill="#77c24e"/>
+<rect x="6" y="2" width="1.04" height="1.04" fill="#5fa83a"/>
+<rect x="7" y="2" width="1.04" height="1.04" fill="#6bb944"/>
+<rect x="0" y="3" width="1.04" height="1.04" fill="#5fa83a"/>
+<rect x="1" y="3" width="1.04" height="1.04" fill="#4f9134"/>
+<rect x="2" y="3" width="1.04" height="1.04" fill="#6bb944"/>
+<rect x="3" y="3" width="1.04" height="1.04" fill="#54993a"/>
+<rect x="4" y="3" width="1.04" height="1.04" fill="#77c24e"/>
+<rect x="5" y="3" width="1.04" height="1.04" fill="#6bb944"/>
+<rect x="6" y="3" width="1.04" height="1.04" fill="#4f9134"/>
+<rect x="7" y="3" width="1.04" height="1.04" fill="#5fa83a"/>
+<rect x="0" y="4" width="1.04" height="1.04" fill="#4f9134"/>
+<rect x="1" y="4" width="1.04" height="1.04" fill="#54993a"/>
+<rect x="2" y="4" width="1.04" height="1.04" fill="#4f9134"/>
+<rect x="3" y="4" width="1.04" height="1.04" fill="#6bb944"/>
+<rect x="4" y="4" width="1.04" height="1.04" fill="#5fa83a"/>
+<rect x="5" y="4" width="1.04" height="1.04" fill="#4f9134"/>
+<rect x="6" y="4" width="1.04" height="1.04" fill="#4f9134"/>
+<rect x="7" y="4" width="1.04" height="1.04" fill="#6bb944"/>
+<rect x="0" y="5" width="1.04" height="1.04" fill="#54993a"/>
+<rect x="1" y="5" width="1.04" height="1.04" fill="#5fa83a"/>
+<rect x="2" y="5" width="1.04" height="1.04" fill="#4f9134"/>
+<rect x="3" y="5" width="1.04" height="1.04" fill="#5fa83a"/>
+<rect x="4" y="5" width="1.04" height="1.04" fill="#4f9134"/>
+<rect x="5" y="5" width="1.04" height="1.04" fill="#5fa83a"/>
+<rect x="6" y="5" width="1.04" height="1.04" fill="#4f9134"/>
+<rect x="7" y="5" width="1.04" height="1.04" fill="#6bb944"/>
+<rect x="0" y="6" width="1.04" height="1.04" fill="#77c24e"/>
+<rect x="1" y="6" width="1.04" height="1.04" fill="#4f9134"/>
+<rect x="2" y="6" width="1.04" height="1.04" fill="#77c24e"/>
+<rect x="3" y="6" width="1.04" height="1.04" fill="#54993a"/>
+<rect x="4" y="6" width="1.04" height="1.04" fill="#77c24e"/>
+<rect x="5" y="6" width="1.04" height="1.04" fill="#4f9134"/>
+<rect x="6" y="6" width="1.04" height="1.04" fill="#77c24e"/>
+<rect x="7" y="6" width="1.04" height="1.04" fill="#54993a"/>
+<rect x="0" y="7" width="1.04" height="1.04" fill="#54993a"/>
+<rect x="1" y="7" width="1.04" height="1.04" fill="#6bb944"/>
+<rect x="2" y="7" width="1.04" height="1.04" fill="#6bb944"/>
+<rect x="3" y="7" width="1.04" height="1.04" fill="#6bb944"/>
+<rect x="4" y="7" width="1.04" height="1.04" fill="#5fa83a"/>
+<rect x="5" y="7" width="1.04" height="1.04" fill="#4f9134"/>
+<rect x="6" y="7" width="1.04" height="1.04" fill="#54993a"/>
+<rect x="7" y="7" width="1.04" height="1.04" fill="#4f9134"/>
+</g>
+<g transform="matrix(9 5.175 0 10.35 163 112)" shape-rendering="crispEdges">
+<rect x="0" y="0" width="1.04" height="1.04" fill="#54993a"/>
+<rect x="1" y="0" width="1.04" height="1.04" fill="#54993a"/>
+<rect x="2" y="0" width="1.04" height="1.04" fill="#6bb944"/>
+<rect x="3" y="0" width="1.04" height="1.04" fill="#54993a"/>
+<rect x="4" y="0" width="1.04" height="1.04" fill="#54993a"/>
+<rect x="5" y="0" width="1.04" height="1.04" fill="#6bb944"/>
+<rect x="6" y="0" width="1.04" height="1.04" fill="#5fa83a"/>
+<rect x="7" y="0" width="1.04" height="1.04" fill="#5fa83a"/>
+<rect x="0" y="1" width="1.04" height="1.04" fill="#6bb944"/>
+<rect x="1" y="1" width="1.04" height="1.04" fill="#6e4520"/>
+<rect x="2" y="1" width="1.04" height="1.04" fill="#5fa83a"/>
+<rect x="3" y="1" width="1.04" height="1.04" fill="#96633a"/>
+<rect x="4" y="1" width="1.04" height="1.04" fill="#7a4e25"/>
+<rect x="5" y="1" width="1.04" height="1.04" fill="#54993a"/>
+<rect x="6" y="1" width="1.04" height="1.04" fill="#6e4520"/>
+<rect x="7" y="1" width="1.04" height="1.04" fill="#5fa83a"/>
+<rect x="0" y="2" width="1.04" height="1.04" fill="#8b5a2b"/>
+<rect x="1" y="2" width="1.04" height="1.04" fill="#a06b3e"/>
+<rect x="2" y="2" width="1.04" height="1.04" fill="#a06b3e"/>
+<rect x="3" y="2" width="1.04" height="1.04" fill="#96633a"/>
+<rect x="4" y="2" width="1.04" height="1.04" fill="#96633a"/>
+<rect x="5" y="2" width="1.04" height="1.04" fill="#6bb944"/>
+<rect x="6" y="2" width="1.04" height="1.04" fill="#96633a"/>
+<rect x="7" y="2" width="1.04" height="1.04" fill="#a06b3e"/>
+<rect x="0" y="3" width="1.04" height="1.04" fill="#6e4520"/>
+<rect x="1" y="3" width="1.04" height="1.04" fill="#a06b3e"/>
+<rect x="2" y="3" width="1.04" height="1.04" fill="#6e4520"/>
+<rect x="3" y="3" width="1.04" height="1.04" fill="#8b5a2b"/>
+<rect x="4" y="3" width="1.04" height="1.04" fill="#8b5a2b"/>
+<rect x="5" y="3" width="1.04" height="1.04" fill="#96633a"/>
+<rect x="6" y="3" width="1.04" height="1.04" fill="#6e4520"/>
+<rect x="7" y="3" width="1.04" height="1.04" fill="#8b5a2b"/>
+<rect x="0" y="4" width="1.04" height="1.04" fill="#8b5a2b"/>
+<rect x="1" y="4" width="1.04" height="1.04" fill="#96633a"/>
+<rect x="2" y="4" width="1.04" height="1.04" fill="#a06b3e"/>
+<rect x="3" y="4" width="1.04" height="1.04" fill="#6e4520"/>
+<rect x="4" y="4" width="1.04" height="1.04" fill="#96633a"/>
+<rect x="5" y="4" width="1.04" height="1.04" fill="#6e4520"/>
+<rect x="6" y="4" width="1.04" height="1.04" fill="#96633a"/>
+<rect x="7" y="4" width="1.04" height="1.04" fill="#8b5a2b"/>
+<rect x="0" y="5" width="1.04" height="1.04" fill="#6e4520"/>
+<rect x="1" y="5" width="1.04" height="1.04" fill="#96633a"/>
+<rect x="2" y="5" width="1.04" height="1.04" fill="#7a4e25"/>
+<rect x="3" y="5" width="1.04" height="1.04" fill="#a06b3e"/>
+<rect x="4" y="5" width="1.04" height="1.04" fill="#8b5a2b"/>
+<rect x="5" y="5" width="1.04" height="1.04" fill="#6e4520"/>
+<rect x="6" y="5" width="1.04" height="1.04" fill="#8b5a2b"/>
+<rect x="7" y="5" width="1.04" height="1.04" fill="#7a4e25"/>
+<rect x="0" y="6" width="1.04" height="1.04" fill="#96633a"/>
+<rect x="1" y="6" width="1.04" height="1.04" fill="#7a4e25"/>
+<rect x="2" y="6" width="1.04" height="1.04" fill="#7a4e25"/>
+<rect x="3" y="6" width="1.04" height="1.04" fill="#6e4520"/>
+<rect x="4" y="6" width="1.04" height="1.04" fill="#6e4520"/>
+<rect x="5" y="6" width="1.04" height="1.04" fill="#6e4520"/>
+<rect x="6" y="6" width="1.04" height="1.04" fill="#8b5a2b"/>
+<rect x="7" y="6" width="1.04" height="1.04" fill="#7a4e25"/>
+<rect x="0" y="7" width="1.04" height="1.04" fill="#6e4520"/>
+<rect x="1" y="7" width="1.04" height="1.04" fill="#6e4520"/>
+<rect x="2" y="7" width="1.04" height="1.04" fill="#a06b3e"/>
+<rect x="3" y="7" width="1.04" height="1.04" fill="#96633a"/>
+<rect x="4" y="7" width="1.04" height="1.04" fill="#7a4e25"/>
+<rect x="5" y="7" width="1.04" height="1.04" fill="#6e4520"/>
+<rect x="6" y="7" width="1.04" height="1.04" fill="#a06b3e"/>
+<rect x="7" y="7" width="1.04" height="1.04" fill="#96633a"/>
+</g>
+<g transform="matrix(9 -5.175 0 10.35 235 153.4)" shape-rendering="crispEdges">
+<rect x="0" y="0" width="1.04" height="1.04" fill="#549b37"/>
+<rect x="1" y="0" width="1.04" height="1.04" fill="#417b29"/>
+<rect x="2" y="0" width="1.04" height="1.04" fill="#417b29"/>
+<rect x="3" y="0" width="1.04" height="1.04" fill="#549b37"/>
+<rect x="4" y="0" width="1.04" height="1.04" fill="#417b29"/>
+<rect x="5" y="0" width="1.04" height="1.04" fill="#4a8a2f"/>
+<rect x="6" y="0" width="1.04" height="1.04" fill="#4a8a2f"/>
+<rect x="7" y="0" width="1.04" height="1.04" fill="#4a8a2f"/>
+<rect x="0" y="1" width="1.04" height="1.04" fill="#4a8a2f"/>
+<rect x="1" y="1" width="1.04" height="1.04" fill="#5e3b1b"/>
+<rect x="2" y="1" width="1.04" height="1.04" fill="#4a8a2f"/>
+<rect x="3" y="1" width="1.04" height="1.04" fill="#5e3b1b"/>
+<rect x="4" y="1" width="1.04" height="1.04" fill="#6c4420"/>
+<rect x="5" y="1" width="1.04" height="1.04" fill="#417b29"/>
+<rect x="6" y="1" width="1.04" height="1.04" fill="#7f5630"/>
+<rect x="7" y="1" width="1.04" height="1.04" fill="#4a8a2f"/>
+<rect x="0" y="2" width="1.04" height="1.04" fill="#77502b"/>
+<rect x="1" y="2" width="1.04" height="1.04" fill="#77502b"/>
+<rect x="2" y="2" width="1.04" height="1.04" fill="#4a8a2f"/>
+<rect x="3" y="2" width="1.04" height="1.04" fill="#5e3b1b"/>
+<rect x="4" y="2" width="1.04" height="1.04" fill="#523316"/>
+<rect x="5" y="2" width="1.04" height="1.04" fill="#7f5630"/>
+<rect x="6" y="2" width="1.04" height="1.04" fill="#77502b"/>
+<rect x="7" y="2" width="1.04" height="1.04" fill="#7f5630"/>
+<rect x="0" y="3" width="1.04" height="1.04" fill="#7f5630"/>
+<rect x="1" y="3" width="1.04" height="1.04" fill="#77502b"/>
+<rect x="2" y="3" width="1.04" height="1.04" fill="#5e3b1b"/>
+<rect x="3" y="3" width="1.04" height="1.04" fill="#7f5630"/>
+<rect x="4" y="3" width="1.04" height="1.04" fill="#7f5630"/>
+<rect x="5" y="3" width="1.04" height="1.04" fill="#6c4420"/>
+<rect x="6" y="3" width="1.04" height="1.04" fill="#523316"/>
+<rect x="7" y="3" width="1.04" height="1.04" fill="#7f5630"/>
+<rect x="0" y="4" width="1.04" height="1.04" fill="#523316"/>
+<rect x="1" y="4" width="1.04" height="1.04" fill="#523316"/>
+<rect x="2" y="4" width="1.04" height="1.04" fill="#523316"/>
+<rect x="3" y="4" width="1.04" height="1.04" fill="#523316"/>
+<rect x="4" y="4" width="1.04" height="1.04" fill="#6c4420"/>
+<rect x="5" y="4" width="1.04" height="1.04" fill="#523316"/>
+<rect x="6" y="4" width="1.04" height="1.04" fill="#523316"/>
+<rect x="7" y="4" width="1.04" height="1.04" fill="#6c4420"/>
+<rect x="0" y="5" width="1.04" height="1.04" fill="#5e3b1b"/>
+<rect x="1" y="5" width="1.04" height="1.04" fill="#6c4420"/>
+<rect x="2" y="5" width="1.04" height="1.04" fill="#5e3b1b"/>
+<rect x="3" y="5" width="1.04" height="1.04" fill="#523316"/>
+<rect x="4" y="5" width="1.04" height="1.04" fill="#5e3b1b"/>
+<rect x="5" y="5" width="1.04" height="1.04" fill="#6c4420"/>
+<rect x="6" y="5" width="1.04" height="1.04" fill="#77502b"/>
+<rect x="7" y="5" width="1.04" height="1.04" fill="#7f5630"/>
+<rect x="0" y="6" width="1.04" height="1.04" fill="#6c4420"/>
+<rect x="1" y="6" width="1.04" height="1.04" fill="#6c4420"/>
+<rect x="2" y="6" width="1.04" height="1.04" fill="#6c4420"/>
+<rect x="3" y="6" width="1.04" height="1.04" fill="#7f5630"/>
+<rect x="4" y="6" width="1.04" height="1.04" fill="#5e3b1b"/>
+<rect x="5" y="6" width="1.04" height="1.04" fill="#7f5630"/>
+<rect x="6" y="6" width="1.04" height="1.04" fill="#6c4420"/>
+<rect x="7" y="6" width="1.04" height="1.04" fill="#77502b"/>
+<rect x="0" y="7" width="1.04" height="1.04" fill="#7f5630"/>
+<rect x="1" y="7" width="1.04" height="1.04" fill="#6c4420"/>
+<rect x="2" y="7" width="1.04" height="1.04" fill="#6c4420"/>
+<rect x="3" y="7" width="1.04" height="1.04" fill="#5e3b1b"/>
+<rect x="4" y="7" width="1.04" height="1.04" fill="#7f5630"/>
+<rect x="5" y="7" width="1.04" height="1.04" fill="#523316"/>
+<rect x="6" y="7" width="1.04" height="1.04" fill="#5e3b1b"/>
+<rect x="7" y="7" width="1.04" height="1.04" fill="#77502b"/>
+</g>
+<path d="M235 153.4 L307 112 L307 194.8 L235 236.2Z" fill="#000" fill-opacity="0.12"/>
+<path d="M163.0 112.0 L235.0 70.6 L307.0 112.0 L307.0 194.8 L235.0 236.2 L163.0 194.8Z M163 112 L235 153.4 L307 112 M235 153.4 L235 236.2" fill="none" stroke="#0b1a10" stroke-opacity="0.55" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="235" cy="258.2" rx="92" ry="12" fill="#000" fill-opacity="0.35"/>
+<text x="420" y="132" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="58" font-weight="700" fill="#f0f6fc" letter-spacing="-1">Minecraft Server</text>
+<text x="422" y="174" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="23" fill="#9fbfa8">Self-built, production-ready Paper server for Docker</text>
+<rect x="422" y="206" width="156" height="34" rx="17" fill="#2ea043" fill-opacity="0.14" stroke="#2ea043" stroke-opacity="0.6"/>
+<text x="500" y="228" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="16" fill="#cfe8d5" text-anchor="middle">1.17 to latest</text>
+<rect x="588.4" y="206" width="108" height="34" rx="17" fill="#2ea043" fill-opacity="0.14" stroke="#2ea043" stroke-opacity="0.6"/>
+<text x="643" y="228" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="16" fill="#cfe8d5" text-anchor="middle">Auto Java</text>
+<rect x="706.8" y="206" width="137" height="34" rx="17" fill="#2ea043" fill-opacity="0.14" stroke="#2ea043" stroke-opacity="0.6"/>
+<text x="775" y="228" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="16" fill="#cfe8d5" text-anchor="middle">Self-healing</text>
+<rect x="854.0" y="206" width="137" height="34" rx="17" fill="#2ea043" fill-opacity="0.14" stroke="#2ea043" stroke-opacity="0.6"/>
+<text x="923" y="228" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="16" fill="#cfe8d5" text-anchor="middle">Safe backups</text>
+<rect x="1001.2" y="206" width="166" height="34" rx="17" fill="#2ea043" fill-opacity="0.14" stroke="#2ea043" stroke-opacity="0.6"/>
+<text x="1084" y="228" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="16" fill="#cfe8d5" text-anchor="middle">Plugin resolver</text>
+</g>
+<rect x="0.5" y="0.5" width="1199" height="319" rx="16" fill="none" stroke="#2ea043" stroke-opacity="0.35"/>
+</svg>

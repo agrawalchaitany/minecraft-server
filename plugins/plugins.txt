@@ -1,0 +1,16 @@
+# Plugins to install automatically. One per line:
+#
+#   <source>   <project>        <version>
+#
+#   source   modrinth (modrinth.com/plugins) or hangar (hangar.papermc.io)
+#   project  the name in the plugin page's URL, e.g. modrinth.com/plugin/luckperms -> luckperms
+#   version  latest  = newest stable release that supports this server's Minecraft version
+#            1.2.3   = exactly this version (copy the version name from the plugin page)
+#
+# After editing, run:  make update-plugins
+# Remove a line and run it again to uninstall that plugin.
+#
+# Examples (remove the leading # to enable):
+# modrinth  luckperms     latest
+# modrinth  chunky        latest
+# hangar    ViaVersion    latest

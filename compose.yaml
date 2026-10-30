@@ -1,0 +1,55 @@
+x-image: &image
+  image: local/paper-server
+
+x-logging: &logging
+  logging:
+    driver: json-file
+    options:
+      max-size: "10m"
+      max-file: "5"
+
+services:
+  mc:
+    <<: [*image, *logging]
+    build:
+      context: .
+      args:
+        MC_VERSION: ${MC_VERSION:-latest}
+        PAPER_BUILD: ${PAPER_BUILD:-latest}
+        # Set automatically by `make` from MC_VERSION; 25 suits the newest Minecraft.
+        JAVA_VERSION: ${JAVA_VERSION:-25}
+        CACHE_BUST: ${CACHE_BUST:-0}
+    pull_policy: build
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "${SERVER_PORT:-25565}:25565"
+    volumes:
+      - mc-data:/data
+      - ./backups:/backups
+      - ./plugins:/config/plugins:ro
+    stdin_open: true
+    tty: true
+    # Time allowed to save worlds on stop before Docker force-kills; raise it for very large worlds.
+    stop_grace_period: ${STOP_TIMEOUT:-2m}
+    mem_limit: ${CONTAINER_MEMORY:-3G}
+
+  backup:
+    <<: [*image, *logging]
+    pull_policy: never
+    command: backup
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      RCON_HOST: mc
+    volumes:
+      - mc-data:/data:ro
+      - ./backups:/backups
+    healthcheck:
+      disable: true
+    depends_on:
+      mc:
+        condition: service_healthy
+
+volumes:
+  mc-data:

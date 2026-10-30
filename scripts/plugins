@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Usage: plugins sync|update|status
+# shellcheck source=/dev/null
+. /opt/minecraft/paper-version.env
+exec java -XX:TieredStopAtLevel=1 -Xmx128m -jar /opt/minecraft/mctool.jar plugins "${1:?usage: plugins sync|update|status}" \
+  "${PLUGINS_MANIFEST:-/config/plugins/plugins.txt}" /data/plugins "$PAPER_VERSION"

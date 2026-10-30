@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Healthy if the server answers a server-list ping, or (when enable-status=false hides it) an RCON command.
+tool=(java -XX:TieredStopAtLevel=1 -Xmx32m -jar /opt/minecraft/mctool.jar)
+"${tool[@]}" ping 127.0.0.1 25565 >/dev/null 2>&1 && exit 0
+[ -n "${RCON_PASSWORD:-}" ] || exit 1
+exec "${tool[@]}" rcon 127.0.0.1 "${RCON_PORT:-25575}" "$RCON_PASSWORD" list >/dev/null 2>&1

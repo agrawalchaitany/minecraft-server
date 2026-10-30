@@ -1,0 +1,5 @@
+name: UsernameRules
+version: 1.0.0
+main: local.usernamerules.UsernameRules
+api-version: '1.17'
+description: Applies Mojang username rules (3-16 chars, A-Z a-z 0-9 _, unique ignoring case) in offline mode.
