@@ -1,0 +1,48 @@
+# Ready-made Paper server (Minecraft 26.3, no plugins) with scheduled backups.
+#   echo EULA=TRUE > .env && docker compose up -d
+# Setting EULA=TRUE accepts the Minecraft EULA: https://aka.ms/MinecraftEULA
+
+x-image: &image
+  image: agrawalchaitany/minecraft-server:${MC_TAG:-26.3}
+  logging:
+    driver: json-file
+    options:
+      max-size: "10m"
+      max-file: "5"
+
+services:
+  mc:
+    <<: *image
+    restart: unless-stopped
+    environment:
+      EULA: ${EULA:-false}
+      MEMORY: ${MEMORY:-2G}
+      ONLINE_MODE: ${ONLINE_MODE:-true}
+      TZ: ${TZ:-UTC}
+    ports:
+      - "${SERVER_PORT:-25565}:25565"
+    volumes:
+      - mc-data:/data
+      - ./backups:/backups
+    stop_grace_period: 2m
+    mem_limit: ${CONTAINER_MEMORY:-3G}
+
+  backup:
+    <<: *image
+    command: backup
+    restart: unless-stopped
+    environment:
+      RCON_HOST: mc
+      BACKUP_INTERVAL: ${BACKUP_INTERVAL:-1h}
+      BACKUP_KEEP: ${BACKUP_KEEP:-24}
+    volumes:
+      - mc-data:/data:ro
+      - ./backups:/backups
+    healthcheck:
+      disable: true
+    depends_on:
+      mc:
+        condition: service_healthy
+
+volumes:
+  mc-data:

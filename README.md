@@ -26,6 +26,32 @@ Everything is built from scratch: no third-party server images or scripts. The o
 
 ## Quick start
 
+### Ready-made image
+
+No build needed: Minecraft 26.3 (latest stable) on Java 25, no plugins, for Intel/AMD and ARM.
+
+```bash
+docker run -d --name minecraft --restart unless-stopped \
+  -p 25565:25565 -e EULA=TRUE -e MEMORY=2G \
+  -v minecraft-data:/data \
+  agrawalchaitany/minecraft-server:26.3
+```
+
+Setting `EULA=TRUE` accepts the [Minecraft EULA](https://aka.ms/MinecraftEULA). Connect to `localhost:25565`; open the console with `docker exec -it minecraft rcon-cli`. The same image is on GitHub Packages as `ghcr.io/agrawalchaitany/minecraft-server`.
+
+With scheduled backups (into `./backups`), use the ready-made [compose file](quickstart/compose.yaml):
+
+```bash
+mkdir minecraft && cd minecraft
+curl -fsSLO https://raw.githubusercontent.com/agrawalchaitany/minecraft-server/main/quickstart/compose.yaml
+echo EULA=TRUE > .env
+docker compose up -d
+```
+
+### Build from source
+
+To choose the Minecraft version, add plugins, or change anything else, build it yourself:
+
 ```bash
 cp .env.example .env
 ```
@@ -34,7 +60,7 @@ Edit `.env`:
 
 ```env
 EULA=TRUE                         # accept https://aka.ms/MinecraftEULA
-RCON_PASSWORD=<random>            # e.g. output of: openssl rand -hex 24
+RCON_PASSWORD=                    # optional; generated automatically if empty
 MC_VERSION=latest                 # or an exact version, e.g. 1.21.4 (see: make versions)
 ```
 
@@ -49,17 +75,17 @@ Full walkthrough: **[Getting started](docs/getting-started.md)**.
 
 ## Features
 
-| | Area | What you get |
-|:-:|---|---|
-| <img src="docs/assets/icons/versions.svg" width="20" height="20" alt=""> | **Any version** | Minecraft 1.17 to the latest. The matching Java (17, 21, or 25) is chosen automatically. Upgrades back up the world first; downgrades that would corrupt it are refused. [More](docs/minecraft-versions.md) |
-| <img src="docs/assets/icons/reliability.svg" width="20" height="20" alt=""> | **Self-healing** | Restarts after crashes and out-of-memory errors. A health check, plus a watchdog that restarts a frozen server. [More](docs/reliability.md) |
-| <img src="docs/assets/icons/shutdown.svg" width="20" height="20" alt=""> | **Safe shutdown** | Every stop saves all worlds through the server console first. [More](docs/reliability.md#graceful-shutdown) |
-| <img src="docs/assets/icons/backups.svg" width="20" height="20" alt=""> | **Backups** | Scheduled and consistent while players are online, locked so two never overlap, verified, checked for disk space, and rotated. Taken automatically before upgrades, migrations, plugin updates, and restores. [More](docs/backups.md) |
-| <img src="docs/assets/icons/restore.svg" width="20" height="20" alt=""> | **Safe restore** | One command. Checks the file first, takes a safety backup, and extracts to a staging folder so a failure can't lose the current world. [More](docs/backups.md#restoring) |
-| <img src="docs/assets/icons/plugins.svg" width="20" height="20" alt=""> | **Plugin manager** | List plugins in `plugins.txt`. For each one, the newest version that really works on your Minecraft and Java is chosen, by inspecting the jar itself. Required dependencies are installed. Conflicts and duplicates are caught. Updates on demand or daily. [More](docs/plugins.md) |
-| <img src="docs/assets/icons/players.svg" width="20" height="20" alt=""> | **Offline mode** | Let players without an official account join, with Mojang's username rules enforced and player inventories kept when switching modes. [More](docs/offline-mode.md) |
-| <img src="docs/assets/icons/guard.svg" width="20" height="20" alt=""> | **Guard rails** | Every setting is validated at startup with a clear message. No crash loops from typos. [More](docs/reliability.md#configuration-validation) |
-| <img src="docs/assets/icons/security.svg" width="20" height="20" alt=""> | **Least privilege** | Runs as a non-root user. The remote console is never exposed outside Docker. Logs are rotated. |
+| Area | What you get |
+|---|---|
+| <img src="docs/assets/icons/versions.svg" width="20" height="20" alt=""> **Any version** | Minecraft 1.17 to the latest. The matching Java (17, 21, or 25) is chosen automatically. Upgrades back up the world first; downgrades that would corrupt it are refused. [More](docs/minecraft-versions.md) |
+| <img src="docs/assets/icons/reliability.svg" width="20" height="20" alt=""> **Self-healing** | Restarts after crashes and out-of-memory errors. A health check, plus a watchdog that restarts a frozen server. [More](docs/reliability.md) |
+| <img src="docs/assets/icons/shutdown.svg" width="20" height="20" alt=""> **Safe shutdown** | Every stop saves all worlds through the server console first. [More](docs/reliability.md#graceful-shutdown) |
+| <img src="docs/assets/icons/backups.svg" width="20" height="20" alt=""> **Backups** | Scheduled and consistent while players are online, locked so two never overlap, verified, checked for disk space, and rotated. Taken automatically before upgrades, migrations, plugin updates, and restores. [More](docs/backups.md) |
+| <img src="docs/assets/icons/restore.svg" width="20" height="20" alt=""> **Safe restore** | One command. Checks the file first, takes a safety backup, and extracts to a staging folder so a failure can't lose the current world. [More](docs/backups.md#restoring) |
+| <img src="docs/assets/icons/plugins.svg" width="20" height="20" alt=""> **Plugin manager** | List plugins in `plugins.txt`. For each one, the newest version that really works on your Minecraft and Java is chosen, by inspecting the jar itself. Required dependencies are installed. Conflicts and duplicates are caught. Updates on demand or daily. [More](docs/plugins.md) |
+| <img src="docs/assets/icons/players.svg" width="20" height="20" alt=""> **Offline mode** | Let players without an official account join, with Mojang's username rules enforced and player inventories kept when switching modes. [More](docs/offline-mode.md) |
+| <img src="docs/assets/icons/guard.svg" width="20" height="20" alt=""> **Guard rails** | Every setting is validated at startup with a clear message. No crash loops from typos. [More](docs/reliability.md#configuration-validation) |
+| <img src="docs/assets/icons/security.svg" width="20" height="20" alt=""> **Least privilege** | Runs as a non-root user. The remote console is never exposed outside Docker. Logs are rotated. |
 
 ## Everyday commands
 

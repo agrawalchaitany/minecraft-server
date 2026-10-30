@@ -26,6 +26,32 @@
 
 ## クイックスタート
 
+### ビルド済みイメージ
+
+ビルド不要: Java 25 上の Minecraft 26.3（最新の安定版）、プラグインなし、Intel/AMD と ARM に対応。
+
+```bash
+docker run -d --name minecraft --restart unless-stopped \
+  -p 25565:25565 -e EULA=TRUE -e MEMORY=2G \
+  -v minecraft-data:/data \
+  agrawalchaitany/minecraft-server:26.3
+```
+
+`EULA=TRUE` にすると [Minecraft EULA](https://aka.ms/MinecraftEULA) に同意したことになります。`localhost:25565` に接続し、コンソールは `docker exec -it minecraft rcon-cli` で開きます。同じイメージは GitHub Packages にも `ghcr.io/agrawalchaitany/minecraft-server` として公開しています。
+
+定期バックアップ（`./backups` に保存）付きで動かすなら、用意済みの [compose ファイル](../../quickstart/compose.yaml) を使います:
+
+```bash
+mkdir minecraft && cd minecraft
+curl -fsSLO https://raw.githubusercontent.com/agrawalchaitany/minecraft-server/main/quickstart/compose.yaml
+echo EULA=TRUE > .env
+docker compose up -d
+```
+
+### ソースからビルド
+
+Minecraft のバージョンを選んだり、プラグインを入れたり、ほかの設定を変えたりするには、自分でビルドします:
+
 ```bash
 cp .env.example .env
 ```
@@ -34,7 +60,7 @@ cp .env.example .env
 
 ```env
 EULA=TRUE                         # accept https://aka.ms/MinecraftEULA
-RCON_PASSWORD=<random>            # e.g. output of: openssl rand -hex 24
+RCON_PASSWORD=                    # optional; generated automatically if empty
 MC_VERSION=latest                 # or an exact version, e.g. 1.21.4 (see: make versions)
 ```
 
@@ -49,17 +75,17 @@ make status        # wait for (healthy), then connect to localhost:25565
 
 ## 機能
 
-| | 分野 | 内容 |
-|:-:|---|---|
-| <img src="../assets/icons/versions.svg" width="20" height="20" alt=""> | **どのバージョンでも** | Minecraft 1.17 から最新まで。対応する Java（17・21・25）を自動で選びます。アップグレード前にワールドをバックアップし、ワールドを壊すダウングレードは拒否します。[詳細](../ja/minecraft-versions.md) |
-| <img src="../assets/icons/reliability.svg" width="20" height="20" alt=""> | **自己回復** | クラッシュやメモリ不足のあと自動で再起動します。ヘルスチェックに加え、フリーズしたサーバーを再起動するウォッチドッグがあります。[詳細](../ja/reliability.md) |
-| <img src="../assets/icons/shutdown.svg" width="20" height="20" alt=""> | **安全な停止** | 停止のたびに、まずサーバーコンソール経由ですべてのワールドを保存します。[詳細](../ja/reliability.md#安全な停止) |
-| <img src="../assets/icons/backups.svg" width="20" height="20" alt=""> | **バックアップ** | 定期実行で、プレイヤーがオンラインでも一貫性を保ちます。ロックで重複実行を防ぎ、検証・ディスク容量チェック・世代管理を行います。アップグレード、移行、プラグイン更新、復元の前にも自動で取得します。[詳細](../ja/backups.md) |
-| <img src="../assets/icons/restore.svg" width="20" height="20" alt=""> | **安全な復元** | コマンド 1 つ。まずファイルを確認し、安全のためのバックアップを取り、一時フォルダーに展開するので、失敗しても今のワールドは失われません。[詳細](../ja/backups.md#復元) |
-| <img src="../assets/icons/plugins.svg" width="20" height="20" alt=""> | **プラグインマネージャー** | `plugins.txt` にプラグインを書くだけ。jar 自体を調べて、あなたの Minecraft と Java で本当に動く最新版をそれぞれ選びます。必須の依存プラグインも入れ、競合や重複も見つけます。更新は手動でも毎日自動でも可能です。[詳細](../ja/plugins.md) |
-| <img src="../assets/icons/players.svg" width="20" height="20" alt=""> | **オフラインモード** | 公式アカウントのないプレイヤーも参加できます。Mojang のユーザー名ルールを適用し、モードを切り替えてもインベントリを保持します。[詳細](../ja/offline-mode.md) |
-| <img src="../assets/icons/guard.svg" width="20" height="20" alt=""> | **ガードレール** | 起動時にすべての設定をわかりやすいメッセージ付きで検証します。入力ミスでクラッシュループにはなりません。[詳細](../ja/reliability.md#設定の検証) |
-| <img src="../assets/icons/security.svg" width="20" height="20" alt=""> | **最小権限** | root 以外のユーザーで動作します。リモートコンソールは Docker の外に公開されません。ログはローテーションされます。 |
+| 分野 | 内容 |
+|---|---|
+| <img src="../assets/icons/versions.svg" width="20" height="20" alt=""> **どのバージョンでも** | Minecraft 1.17 から最新まで。対応する Java（17・21・25）を自動で選びます。アップグレード前にワールドをバックアップし、ワールドを壊すダウングレードは拒否します。[詳細](../ja/minecraft-versions.md) |
+| <img src="../assets/icons/reliability.svg" width="20" height="20" alt=""> **自己回復** | クラッシュやメモリ不足のあと自動で再起動します。ヘルスチェックに加え、フリーズしたサーバーを再起動するウォッチドッグがあります。[詳細](../ja/reliability.md) |
+| <img src="../assets/icons/shutdown.svg" width="20" height="20" alt=""> **安全な停止** | 停止のたびに、まずサーバーコンソール経由ですべてのワールドを保存します。[詳細](../ja/reliability.md#安全な停止) |
+| <img src="../assets/icons/backups.svg" width="20" height="20" alt=""> **バックアップ** | 定期実行で、プレイヤーがオンラインでも一貫性を保ちます。ロックで重複実行を防ぎ、検証・ディスク容量チェック・世代管理を行います。アップグレード、移行、プラグイン更新、復元の前にも自動で取得します。[詳細](../ja/backups.md) |
+| <img src="../assets/icons/restore.svg" width="20" height="20" alt=""> **安全な復元** | コマンド 1 つ。まずファイルを確認し、安全のためのバックアップを取り、一時フォルダーに展開するので、失敗しても今のワールドは失われません。[詳細](../ja/backups.md#復元) |
+| <img src="../assets/icons/plugins.svg" width="20" height="20" alt=""> **プラグインマネージャー** | `plugins.txt` にプラグインを書くだけ。jar 自体を調べて、あなたの Minecraft と Java で本当に動く最新版をそれぞれ選びます。必須の依存プラグインも入れ、競合や重複も見つけます。更新は手動でも毎日自動でも可能です。[詳細](../ja/plugins.md) |
+| <img src="../assets/icons/players.svg" width="20" height="20" alt=""> **オフラインモード** | 公式アカウントのないプレイヤーも参加できます。Mojang のユーザー名ルールを適用し、モードを切り替えてもインベントリを保持します。[詳細](../ja/offline-mode.md) |
+| <img src="../assets/icons/guard.svg" width="20" height="20" alt=""> **ガードレール** | 起動時にすべての設定をわかりやすいメッセージ付きで検証します。入力ミスでクラッシュループにはなりません。[詳細](../ja/reliability.md#設定の検証) |
+| <img src="../assets/icons/security.svg" width="20" height="20" alt=""> **最小権限** | root 以外のユーザーで動作します。リモートコンソールは Docker の外に公開されません。ログはローテーションされます。 |
 
 ## よく使うコマンド
 

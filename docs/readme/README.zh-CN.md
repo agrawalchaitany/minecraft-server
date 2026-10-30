@@ -26,6 +26,32 @@
 
 ## 快速开始
 
+### 现成镜像
+
+无需构建：Java 25 上的 Minecraft 26.3（最新稳定版），不含插件，支持 Intel/AMD 和 ARM。
+
+```bash
+docker run -d --name minecraft --restart unless-stopped \
+  -p 25565:25565 -e EULA=TRUE -e MEMORY=2G \
+  -v minecraft-data:/data \
+  agrawalchaitany/minecraft-server:26.3
+```
+
+设置 `EULA=TRUE` 表示你接受 [Minecraft EULA](https://aka.ms/MinecraftEULA)。连接 `localhost:25565`；用 `docker exec -it minecraft rcon-cli` 打开控制台。同一镜像也以 `ghcr.io/agrawalchaitany/minecraft-server` 发布在 GitHub Packages。
+
+如需定时备份（保存到 `./backups`），使用现成的 [compose 文件](../../quickstart/compose.yaml)：
+
+```bash
+mkdir minecraft && cd minecraft
+curl -fsSLO https://raw.githubusercontent.com/agrawalchaitany/minecraft-server/main/quickstart/compose.yaml
+echo EULA=TRUE > .env
+docker compose up -d
+```
+
+### 从源码构建
+
+如需选择 Minecraft 版本、添加插件或修改其他内容，请自行构建：
+
 ```bash
 cp .env.example .env
 ```
@@ -34,7 +60,7 @@ cp .env.example .env
 
 ```env
 EULA=TRUE                         # accept https://aka.ms/MinecraftEULA
-RCON_PASSWORD=<random>            # e.g. output of: openssl rand -hex 24
+RCON_PASSWORD=                    # optional; generated automatically if empty
 MC_VERSION=latest                 # or an exact version, e.g. 1.21.4 (see: make versions)
 ```
 
@@ -49,17 +75,17 @@ make status        # wait for (healthy), then connect to localhost:25565
 
 ## 功能
 
-| | 方面 | 你能得到什么 |
-|:-:|---|---|
-| <img src="../assets/icons/versions.svg" width="20" height="20" alt=""> | **任意版本** | 支持 Minecraft 1.17 至最新版本。自动选择匹配的 Java（17、21 或 25）。升级前先备份世界；会损坏世界的降级会被拒绝。[详情](../zh-CN/minecraft-versions.md) |
-| <img src="../assets/icons/reliability.svg" width="20" height="20" alt=""> | **自我修复** | 崩溃和内存不足后自动重启。提供健康检查，以及会重启卡死服务器的看门狗（watchdog）。[详情](../zh-CN/reliability.md) |
-| <img src="../assets/icons/shutdown.svg" width="20" height="20" alt=""> | **安全关闭** | 每次停止前都会先通过服务器控制台保存所有世界。[详情](../zh-CN/reliability.md#安全关闭) |
-| <img src="../assets/icons/backups.svg" width="20" height="20" alt=""> | **备份** | 定时执行，即使玩家在线也保持一致；加锁保证不会重叠；经过校验、检查磁盘空间并自动轮换。在升级、迁移、插件更新和恢复之前自动备份。[详情](../zh-CN/backups.md) |
-| <img src="../assets/icons/restore.svg" width="20" height="20" alt=""> | **安全恢复** | 一条命令。先检查文件，再做一次安全备份，并先解压到暂存目录，因此失败也不会丢失当前世界。[详情](../zh-CN/backups.md#恢复) |
-| <img src="../assets/icons/plugins.svg" width="20" height="20" alt=""> | **插件管理器** | 在 `plugins.txt` 中列出插件。通过检查 jar 本身，为每个插件选择在你的 Minecraft 和 Java 上真正能运行的最新版本。自动安装必需的依赖，并发现冲突和重复。可按需或每天更新。[详情](../zh-CN/plugins.md) |
-| <img src="../assets/icons/players.svg" width="20" height="20" alt=""> | **离线模式** | 允许没有正版账号的玩家加入，同时执行 Mojang 的用户名规则，并在切换模式时保留玩家物品栏。[详情](../zh-CN/offline-mode.md) |
-| <img src="../assets/icons/guard.svg" width="20" height="20" alt=""> | **防护措施** | 启动时校验每一项设置并给出清晰提示。不会因为拼写错误而陷入崩溃循环。[详情](../zh-CN/reliability.md#配置校验) |
-| <img src="../assets/icons/security.svg" width="20" height="20" alt=""> | **最小权限** | 以非 root 用户运行。远程控制台从不暴露到 Docker 之外。日志自动轮换。 |
+| 方面 | 你能得到什么 |
+|---|---|
+| <img src="../assets/icons/versions.svg" width="20" height="20" alt=""> **任意版本** | 支持 Minecraft 1.17 至最新版本。自动选择匹配的 Java（17、21 或 25）。升级前先备份世界；会损坏世界的降级会被拒绝。[详情](../zh-CN/minecraft-versions.md) |
+| <img src="../assets/icons/reliability.svg" width="20" height="20" alt=""> **自我修复** | 崩溃和内存不足后自动重启。提供健康检查，以及会重启卡死服务器的看门狗（watchdog）。[详情](../zh-CN/reliability.md) |
+| <img src="../assets/icons/shutdown.svg" width="20" height="20" alt=""> **安全关闭** | 每次停止前都会先通过服务器控制台保存所有世界。[详情](../zh-CN/reliability.md#安全关闭) |
+| <img src="../assets/icons/backups.svg" width="20" height="20" alt=""> **备份** | 定时执行，即使玩家在线也保持一致；加锁保证不会重叠；经过校验、检查磁盘空间并自动轮换。在升级、迁移、插件更新和恢复之前自动备份。[详情](../zh-CN/backups.md) |
+| <img src="../assets/icons/restore.svg" width="20" height="20" alt=""> **安全恢复** | 一条命令。先检查文件，再做一次安全备份，并先解压到暂存目录，因此失败也不会丢失当前世界。[详情](../zh-CN/backups.md#恢复) |
+| <img src="../assets/icons/plugins.svg" width="20" height="20" alt=""> **插件管理器** | 在 `plugins.txt` 中列出插件。通过检查 jar 本身，为每个插件选择在你的 Minecraft 和 Java 上真正能运行的最新版本。自动安装必需的依赖，并发现冲突和重复。可按需或每天更新。[详情](../zh-CN/plugins.md) |
+| <img src="../assets/icons/players.svg" width="20" height="20" alt=""> **离线模式** | 允许没有正版账号的玩家加入，同时执行 Mojang 的用户名规则，并在切换模式时保留玩家物品栏。[详情](../zh-CN/offline-mode.md) |
+| <img src="../assets/icons/guard.svg" width="20" height="20" alt=""> **防护措施** | 启动时校验每一项设置并给出清晰提示。不会因为拼写错误而陷入崩溃循环。[详情](../zh-CN/reliability.md#配置校验) |
+| <img src="../assets/icons/security.svg" width="20" height="20" alt=""> **最小权限** | 以非 root 用户运行。远程控制台从不暴露到 Docker 之外。日志自动轮换。 |
 
 ## 常用命令
 

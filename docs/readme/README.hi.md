@@ -26,6 +26,32 @@
 
 ## जल्दी शुरुआत
 
+### तैयार इमेज
+
+कुछ बनाने की ज़रूरत नहीं: Java 25 पर Minecraft 26.3 (नवीनतम stable), बिना प्लगइन्स, Intel/AMD और ARM के लिए।
+
+```bash
+docker run -d --name minecraft --restart unless-stopped \
+  -p 25565:25565 -e EULA=TRUE -e MEMORY=2G \
+  -v minecraft-data:/data \
+  agrawalchaitany/minecraft-server:26.3
+```
+
+`EULA=TRUE` सेट करने का मतलब है कि आप [Minecraft EULA](https://aka.ms/MinecraftEULA) स्वीकार करते हैं। `localhost:25565` से जुड़ें; कंसोल `docker exec -it minecraft rcon-cli` से खोलें। यही इमेज GitHub Packages पर `ghcr.io/agrawalchaitany/minecraft-server` के रूप में भी है।
+
+तय समय पर बैकअप (`./backups` में) के साथ चलाने के लिए तैयार [compose फ़ाइल](../../quickstart/compose.yaml) इस्तेमाल करें:
+
+```bash
+mkdir minecraft && cd minecraft
+curl -fsSLO https://raw.githubusercontent.com/agrawalchaitany/minecraft-server/main/quickstart/compose.yaml
+echo EULA=TRUE > .env
+docker compose up -d
+```
+
+### सोर्स से बनाएँ
+
+Minecraft संस्करण चुनने, प्लगइन्स जोड़ने या कुछ और बदलने के लिए, इसे खुद बनाएँ:
+
 ```bash
 cp .env.example .env
 ```
@@ -34,7 +60,7 @@ cp .env.example .env
 
 ```env
 EULA=TRUE                         # accept https://aka.ms/MinecraftEULA
-RCON_PASSWORD=<random>            # e.g. output of: openssl rand -hex 24
+RCON_PASSWORD=                    # optional; generated automatically if empty
 MC_VERSION=latest                 # or an exact version, e.g. 1.21.4 (see: make versions)
 ```
 
@@ -49,17 +75,17 @@ make status        # wait for (healthy), then connect to localhost:25565
 
 ## सुविधाएँ
 
-| | क्षेत्र | आपको क्या मिलता है |
-|:-:|---|---|
-| <img src="../assets/icons/versions.svg" width="20" height="20" alt=""> | **कोई भी संस्करण** | Minecraft 1.17 से नवीनतम तक। सही Java (17, 21 या 25) अपने आप चुना जाता है। अपग्रेड से पहले दुनिया का बैकअप लिया जाता है; जो डाउनग्रेड दुनिया को खराब कर सकते हैं, उन्हें मना कर दिया जाता है। [और जानें](../hi/minecraft-versions.md) |
-| <img src="../assets/icons/reliability.svg" width="20" height="20" alt=""> | **खुद ठीक होना** | क्रैश और मेमोरी खत्म होने के बाद अपने आप फिर से शुरू। एक health check, और एक watchdog जो अटके हुए सर्वर को फिर से शुरू करता है। [और जानें](../hi/reliability.md) |
-| <img src="../assets/icons/shutdown.svg" width="20" height="20" alt=""> | **सुरक्षित बंद होना** | हर बार रोकने से पहले सर्वर कंसोल के ज़रिए सभी दुनियाएँ सेव की जाती हैं। [और जानें](../hi/reliability.md#सुरक्षित-बंद-होना) |
-| <img src="../assets/icons/backups.svg" width="20" height="20" alt=""> | **बैकअप** | तय समय पर, खिलाड़ियों के ऑनलाइन रहते हुए भी सुसंगत; लॉक किए जाते हैं ताकि दो कभी एक साथ न चलें; जाँचे जाते हैं, डिस्क स्पेस देखा जाता है और पुराने हटाए जाते हैं। अपग्रेड, माइग्रेशन, प्लगइन अपडेट और रिस्टोर से पहले अपने आप लिए जाते हैं। [और जानें](../hi/backups.md) |
-| <img src="../assets/icons/restore.svg" width="20" height="20" alt=""> | **सुरक्षित रिस्टोर** | एक कमांड। पहले फ़ाइल जाँचता है, सुरक्षा बैकअप लेता है, और एक staging फ़ोल्डर में निकालता है ताकि कोई गड़बड़ी मौजूदा दुनिया को न मिटा सके। [और जानें](../hi/backups.md#रिस्टोर-करना) |
-| <img src="../assets/icons/plugins.svg" width="20" height="20" alt=""> | **प्लगइन मैनेजर** | `plugins.txt` में प्लगइन्स लिखें। हर एक के लिए, jar की खुद जाँच करके वह नवीनतम संस्करण चुना जाता है जो आपके Minecraft और Java पर सच में चलता है। ज़रूरी dependencies इंस्टॉल की जाती हैं। टकराव और डुप्लिकेट पकड़े जाते हैं। ज़रूरत पर या रोज़ अपडेट। [और जानें](../hi/plugins.md) |
-| <img src="../assets/icons/players.svg" width="20" height="20" alt=""> | **ऑफ़लाइन मोड** | बिना आधिकारिक अकाउंट वाले खिलाड़ियों को जुड़ने दें, Mojang के यूज़रनेम नियम लागू रहते हैं और मोड बदलने पर खिलाड़ियों का सामान सुरक्षित रहता है। [और जानें](../hi/offline-mode.md) |
-| <img src="../assets/icons/guard.svg" width="20" height="20" alt=""> | **सुरक्षा जाँचें** | शुरू होते समय हर सेटिंग साफ़ संदेश के साथ जाँची जाती है। टाइपो से क्रैश-लूप नहीं होते। [और जानें](../hi/reliability.md#सेटिंग्स-की-जाँच) |
-| <img src="../assets/icons/security.svg" width="20" height="20" alt=""> | **न्यूनतम अधिकार** | non-root यूज़र के रूप में चलता है। रिमोट कंसोल Docker के बाहर कभी उजागर नहीं होता। लॉग rotate किए जाते हैं। |
+| क्षेत्र | आपको क्या मिलता है |
+|---|---|
+| <img src="../assets/icons/versions.svg" width="20" height="20" alt=""> **कोई भी संस्करण** | Minecraft 1.17 से नवीनतम तक। सही Java (17, 21 या 25) अपने आप चुना जाता है। अपग्रेड से पहले दुनिया का बैकअप लिया जाता है; जो डाउनग्रेड दुनिया को खराब कर सकते हैं, उन्हें मना कर दिया जाता है। [और जानें](../hi/minecraft-versions.md) |
+| <img src="../assets/icons/reliability.svg" width="20" height="20" alt=""> **खुद ठीक होना** | क्रैश और मेमोरी खत्म होने के बाद अपने आप फिर से शुरू। एक health check, और एक watchdog जो अटके हुए सर्वर को फिर से शुरू करता है। [और जानें](../hi/reliability.md) |
+| <img src="../assets/icons/shutdown.svg" width="20" height="20" alt=""> **सुरक्षित बंद होना** | हर बार रोकने से पहले सर्वर कंसोल के ज़रिए सभी दुनियाएँ सेव की जाती हैं। [और जानें](../hi/reliability.md#सुरक्षित-बंद-होना) |
+| <img src="../assets/icons/backups.svg" width="20" height="20" alt=""> **बैकअप** | तय समय पर, खिलाड़ियों के ऑनलाइन रहते हुए भी सुसंगत; लॉक किए जाते हैं ताकि दो कभी एक साथ न चलें; जाँचे जाते हैं, डिस्क स्पेस देखा जाता है और पुराने हटाए जाते हैं। अपग्रेड, माइग्रेशन, प्लगइन अपडेट और रिस्टोर से पहले अपने आप लिए जाते हैं। [और जानें](../hi/backups.md) |
+| <img src="../assets/icons/restore.svg" width="20" height="20" alt=""> **सुरक्षित रिस्टोर** | एक कमांड। पहले फ़ाइल जाँचता है, सुरक्षा बैकअप लेता है, और एक staging फ़ोल्डर में निकालता है ताकि कोई गड़बड़ी मौजूदा दुनिया को न मिटा सके। [और जानें](../hi/backups.md#रिस्टोर-करना) |
+| <img src="../assets/icons/plugins.svg" width="20" height="20" alt=""> **प्लगइन मैनेजर** | `plugins.txt` में प्लगइन्स लिखें। हर एक के लिए, jar की खुद जाँच करके वह नवीनतम संस्करण चुना जाता है जो आपके Minecraft और Java पर सच में चलता है। ज़रूरी dependencies इंस्टॉल की जाती हैं। टकराव और डुप्लिकेट पकड़े जाते हैं। ज़रूरत पर या रोज़ अपडेट। [और जानें](../hi/plugins.md) |
+| <img src="../assets/icons/players.svg" width="20" height="20" alt=""> **ऑफ़लाइन मोड** | बिना आधिकारिक अकाउंट वाले खिलाड़ियों को जुड़ने दें, Mojang के यूज़रनेम नियम लागू रहते हैं और मोड बदलने पर खिलाड़ियों का सामान सुरक्षित रहता है। [और जानें](../hi/offline-mode.md) |
+| <img src="../assets/icons/guard.svg" width="20" height="20" alt=""> **सुरक्षा जाँचें** | शुरू होते समय हर सेटिंग साफ़ संदेश के साथ जाँची जाती है। टाइपो से क्रैश-लूप नहीं होते। [और जानें](../hi/reliability.md#सेटिंग्स-की-जाँच) |
+| <img src="../assets/icons/security.svg" width="20" height="20" alt=""> **न्यूनतम अधिकार** | non-root यूज़र के रूप में चलता है। रिमोट कंसोल Docker के बाहर कभी उजागर नहीं होता। लॉग rotate किए जाते हैं। |
 
 ## रोज़मर्रा की कमांड
 
