@@ -11,8 +11,17 @@ case "${EULA:-false}" in
   *) log "You must accept the Minecraft EULA (https://aka.ms/MinecraftEULA) by setting EULA=TRUE in .env"; exit 1 ;;
 esac
 
-: "${RCON_PASSWORD:?RCON_PASSWORD must be set (used for graceful shutdown and backups)}"
-if [ "$RCON_PASSWORD" = "change-me-to-a-long-random-string" ]; then fail "Set RCON_PASSWORD in .env to your own random value"; fi
+# RCON is internal (safe saves, backups, console). Without a configured password, generate one and keep it in
+# /data so the backup container and later restarts use the same value.
+if [ -z "${RCON_PASSWORD:-}" ]; then
+  if [ ! -s .rcon-password ]; then
+    (umask 077; head -c 24 /dev/urandom | od -An -tx1 | tr -d ' \n' > .rcon-password)
+    log "Generated an internal RCON password (stored in /data/.rcon-password)"
+  fi
+  RCON_PASSWORD="$(cat .rcon-password)"
+  export RCON_PASSWORD
+fi
+if [ "$RCON_PASSWORD" = "change-me-to-a-long-random-string" ]; then fail "Set RCON_PASSWORD in .env to your own random value, or leave it empty to generate one"; fi
 # server.properties treats backslashes as escapes and trims spaces, so such passwords would silently not match.
 case "$RCON_PASSWORD" in
   *\\*|" "*|*" ") fail "RCON_PASSWORD must not contain backslashes or start/end with spaces (try: openssl rand -hex 24)" ;;

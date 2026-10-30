@@ -1,3 +1,6 @@
 #!/usr/bin/env bash
+# Uses RCON_PASSWORD, or the one start-server generated into /data when none was configured.
+pw="${RCON_PASSWORD:-$(cat /data/.rcon-password 2>/dev/null)}"
+[ -n "$pw" ] || { echo "RCON password not set and /data/.rcon-password not found" >&2; exit 1; }
 exec java -XX:TieredStopAtLevel=1 -Xmx32m -jar /opt/minecraft/mctool.jar rcon \
-  "${RCON_HOST:-127.0.0.1}" "${RCON_PORT:-25575}" "${RCON_PASSWORD:?RCON_PASSWORD not set}" "$@"
+  "${RCON_HOST:-127.0.0.1}" "${RCON_PORT:-25575}" "$pw" "$@"
