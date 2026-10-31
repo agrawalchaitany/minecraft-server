@@ -18,7 +18,7 @@ A maioria dos problemas gera uma linha `ERROR:` clara nos logs, indicando a conf
 Defina `EULA=TRUE` no `.env` e rode `make up`.
 
 **"Set RCON_PASSWORD in .env to your own random value"** ou **"RCON_PASSWORD must not contain backslashes…"**
-Use `openssl rand -hex 24` e coloque o resultado no `.env`.
+Deixe `RCON_PASSWORD` vazio no `.env` para que uma seja gerada, ou use `openssl rand -hex 24`.
 
 **"MEMORY … does not fit in the container limit"**
 Aumente `CONTAINER_MEMORY` para o valor sugerido na mensagem ou diminua `MEMORY`. No macOS, confira também a memória do Docker Desktop em **Settings → Resources**.

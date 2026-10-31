@@ -31,16 +31,15 @@ O servidor se reinicia sozinho após travar, salva o mundo corretamente ao parar
 cp .env.example .env
 ```
 
-**2. Altere três valores no `.env`.**
+**2. Altere dois valores no `.env`.**
 
 ```env
 EULA=TRUE
-RCON_PASSWORD=paste-a-long-random-value-here
 MC_VERSION=latest
 ```
 
 - `EULA=TRUE` significa que você aceita o [EULA do Minecraft](https://aka.ms/MinecraftEULA). Sem isso, o servidor não inicia.
-- `RCON_PASSWORD` é usado internamente para salvar o mundo com segurança durante backups e desligamentos. Gere um com `openssl rand -hex 24`. Ele nunca fica exposto fora do Docker.
+- `RCON_PASSWORD` é opcional. É usado internamente para salvar o mundo com segurança durante backups e desligamentos. Se ficar vazio, um aleatório é gerado e guardado no volume de dados. Ele nunca fica exposto fora do Docker.
 - `MC_VERSION` é a versão do Minecraft a rodar. Mantenha `latest` ou escolha uma de `make versions`, como `1.21.4`. **Escolha agora:** o mundo pode ser atualizado para uma versão mais nova depois, mas nunca voltar para uma mais antiga. Veja [Versões do Minecraft](minecraft-versions.md).
 
 **3. Inicie.**

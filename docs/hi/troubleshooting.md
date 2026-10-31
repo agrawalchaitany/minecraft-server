@@ -18,7 +18,7 @@ make logs            # what did it say?
 `.env` में `EULA=TRUE` सेट करें, फिर `make up`।
 
 **"Set RCON_PASSWORD in .env to your own random value"** या **"RCON_PASSWORD must not contain backslashes…"**
-`openssl rand -hex 24` चलाएँ और नतीजा `.env` में डालें।
+`.env` में `RCON_PASSWORD` खाली छोड़ें ताकि एक अपने आप बन जाए, या `openssl rand -hex 24` इस्तेमाल करें।
 
 **"MEMORY … does not fit in the container limit"**
 `CONTAINER_MEMORY` को संदेश में सुझाए गए मान तक बढ़ाएँ, या `MEMORY` घटाएँ। macOS पर **Settings → Resources** में Docker Desktop की मेमोरी भी जाँचें।

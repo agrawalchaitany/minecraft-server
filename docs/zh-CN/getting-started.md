@@ -31,16 +31,15 @@
 cp .env.example .env
 ```
 
-**2. 修改 `.env` 中的三个值。**
+**2. 修改 `.env` 中的两个值。**
 
 ```env
 EULA=TRUE
-RCON_PASSWORD=paste-a-long-random-value-here
 MC_VERSION=latest
 ```
 
 - `EULA=TRUE` 表示你接受 [Minecraft EULA](https://aka.ms/MinecraftEULA)。没有它服务器不会启动。
-- `RCON_PASSWORD` 在内部使用，用于在备份和关闭时安全地保存世界。可以用 `openssl rand -hex 24` 生成。它永远不会暴露到 Docker 之外。
+- `RCON_PASSWORD` 是可选的。它在内部使用，用于在备份和关闭时安全地保存世界。留空时会生成一个随机密码并保存在数据卷中。它永远不会暴露到 Docker 之外。
 - `MC_VERSION` 是要运行的 Minecraft 版本。保留 `latest`，或从 `make versions` 中选择一个，例如 `1.21.4`。**现在就决定：**世界以后可以升级到更新的版本，但永远无法退回到更旧的版本。参见 [Minecraft 版本](minecraft-versions.md)。
 
 **3. 启动。**

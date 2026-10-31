@@ -111,7 +111,7 @@ STOP_TIMEOUT=5m
 | 設定 | 拒否される値の例 | メッセージ |
 |---|---|---|
 | `EULA` | `false` | EULA に同意する必要がある |
-| `RCON_PASSWORD` | 仮の値、またはバックスラッシュを含む値 | 理由と生成方法を説明 |
+| `RCON_PASSWORD` | 古い仮の値、またはバックスラッシュを含む値（空は問題なし: 自動生成されます） | 理由と生成方法を説明 |
 | `MEMORY` | `2GB` | `2G` や `1536M` の形式にする |
 | `MEMORY` / `CONTAINER_MEMORY` | `3G` のコンテナで `4G` | 設定すべき `CONTAINER_MEMORY` を提示 |
 | `WATCHDOG_INTERVAL`、`WATCHDOG_FAILURES` | `1m` | 整数にする |

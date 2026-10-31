@@ -10,7 +10,8 @@
 | 状況 | 動作 | |
 |---|---|---|
 | `EULA` が `TRUE` でない | 起動を拒否し、同意する方法を説明 | テスト済み |
-| `RCON_PASSWORD` が仮の値のまま | 起動を拒否 | テスト済み |
+| `RCON_PASSWORD` が空 | `/data/.rcon-password` にランダムなものを生成し、再起動時とバックアップコンテナで再利用 | テスト済み |
+| `RCON_PASSWORD` が古い仮の値のまま | 起動を拒否 | テスト済み |
 | `RCON_PASSWORD` にバックスラッシュや前後のスペースがある | 起動を拒否。`server.properties` が値を黙って変えてしまい、安全な保存が壊れるため。 | テスト済み |
 | `MEMORY=2GB`（形式の誤り） | 起動を拒否: "must look like 2G or 1536M" | テスト済み |
 | `MEMORY` が `CONTAINER_MEMORY` の許容量を超える | メモリ不足の強制終了ループではなく、起動を拒否して設定すべき `CONTAINER_MEMORY` を提示 | テスト済み |

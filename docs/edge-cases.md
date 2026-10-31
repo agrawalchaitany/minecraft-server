@@ -10,7 +10,8 @@ How the server behaves in unusual situations. Entries marked **tested** were rep
 | Situation | Behavior | |
 |---|---|---|
 | `EULA` not `TRUE` | Refuses to start and explains how to accept | tested |
-| `RCON_PASSWORD` left as the placeholder | Refuses to start | tested |
+| `RCON_PASSWORD` left empty | Generates a random one in `/data/.rcon-password`, reused on restarts and by the backup container | tested |
+| `RCON_PASSWORD` set to the old placeholder | Refuses to start | tested |
 | `RCON_PASSWORD` contains a backslash or edge spaces | Refuses to start. `server.properties` would silently change it, breaking safe saves. | tested |
 | `MEMORY=2GB` (wrong format) | Refuses to start: "must look like 2G or 1536M" | tested |
 | `MEMORY` larger than `CONTAINER_MEMORY` allows | Refuses to start and says which `CONTAINER_MEMORY` to set, instead of an out-of-memory kill loop | tested |

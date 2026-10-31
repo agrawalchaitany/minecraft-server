@@ -10,7 +10,8 @@
 | 상황 | 동작 | |
 |---|---|---|
 | `EULA`가 `TRUE`가 아님 | 시작을 거부하고 동의하는 방법을 설명 | 테스트됨 |
-| `RCON_PASSWORD`가 예시 값 그대로 | 시작을 거부 | 테스트됨 |
+| `RCON_PASSWORD`를 비워 둠 | `/data/.rcon-password`에 무작위 비밀번호를 만들고, 재시작과 백업 컨테이너에서 재사용 | 테스트됨 |
+| `RCON_PASSWORD`가 예전 예시 값 그대로 | 시작을 거부 | 테스트됨 |
 | `RCON_PASSWORD`에 백슬래시나 앞뒤 공백이 있음 | 시작을 거부. `server.properties`가 값을 조용히 바꿔 안전한 저장이 깨지기 때문. | 테스트됨 |
 | `MEMORY=2GB`(잘못된 형식) | 시작을 거부: "must look like 2G or 1536M" | 테스트됨 |
 | `MEMORY`가 `CONTAINER_MEMORY`가 허용하는 것보다 큼 | 메모리 부족 강제 종료 루프 대신, 시작을 거부하고 설정할 `CONTAINER_MEMORY`를 알려 줌 | 테스트됨 |

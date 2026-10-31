@@ -30,7 +30,7 @@ cp .env.example .env
 id -u && id -g          # put these into PUID / PGID
 ```
 
-In `.env`, set at least `EULA`, `RCON_PASSWORD`, `MC_VERSION` (pin an exact version), `MEMORY`, and `CONTAINER_MEMORY`.
+In `.env`, set at least `EULA`, `MC_VERSION` (pin an exact version), `MEMORY`, and `CONTAINER_MEMORY`.
 
 | Server RAM | `MEMORY` | `CONTAINER_MEMORY` |
 |---|---|---|
@@ -96,7 +96,7 @@ Your world lives in the Docker volume and isn't affected by replacing the files.
 ## Security checklist
 
 - Keep `ONLINE_MODE=true` unless you need offline mode, and read [the risks](offline-mode.md#the-risk-usernames-arent-verified) if you do.
-- Use a long random `RCON_PASSWORD`. Never publish port 25575.
+- Leave `RCON_PASSWORD` empty to get a generated one, or use a long random value. Never publish port 25575.
 - Keep `.env` private; it contains the RCON password. It's excluded from git and from the Docker build.
 - Keep the host updated, and use SSH keys instead of passwords.
 - Make operators only of people who need it; `make cmd C="deop Name"` removes it.

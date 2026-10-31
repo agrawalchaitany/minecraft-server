@@ -107,7 +107,7 @@ Settings are checked before anything starts. A bad value stops the start with a 
 | Setting | Example of a rejected value | Message |
 |---|---|---|
 | `EULA` | `false` | must accept the EULA |
-| `RCON_PASSWORD` | the placeholder, or a value with a backslash | explains why and how to generate one |
+| `RCON_PASSWORD` | the old placeholder, or a value with a backslash (empty is fine: one is generated) | explains why and how to generate one |
 | `MEMORY` | `2GB` | must look like `2G` or `1536M` |
 | `MEMORY` / `CONTAINER_MEMORY` | `4G` in a `3G` container | says which `CONTAINER_MEMORY` to set |
 | `WATCHDOG_INTERVAL`, `WATCHDOG_FAILURES` | `1m` | must be a whole number |

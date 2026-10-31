@@ -111,7 +111,7 @@ STOP_TIMEOUT=5m
 | 设置 | 被拒绝的值示例 | 提示 |
 |---|---|---|
 | `EULA` | `false` | 必须接受 EULA |
-| `RCON_PASSWORD` | 占位值，或包含反斜杠的值 | 说明原因以及如何生成 |
+| `RCON_PASSWORD` | 旧的占位值，或包含反斜杠的值（留空没问题：会自动生成） | 说明原因以及如何生成 |
 | `MEMORY` | `2GB` | 必须形如 `2G` 或 `1536M` |
 | `MEMORY` / `CONTAINER_MEMORY` | `3G` 容器中设置 `4G` | 告诉你该设置多少 `CONTAINER_MEMORY` |
 | `WATCHDOG_INTERVAL`、`WATCHDOG_FAILURES` | `1m` | 必须是整数 |

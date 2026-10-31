@@ -31,16 +31,15 @@ The server restarts itself after crashes, saves the world properly when stopped,
 cp .env.example .env
 ```
 
-**2. Edit three values in `.env`.**
+**2. Edit two values in `.env`.**
 
 ```env
 EULA=TRUE
-RCON_PASSWORD=paste-a-long-random-value-here
 MC_VERSION=latest
 ```
 
 - `EULA=TRUE` means you accept the [Minecraft EULA](https://aka.ms/MinecraftEULA). The server won't start without it.
-- `RCON_PASSWORD` is used internally to save the world safely during backups and shutdowns. Generate one with `openssl rand -hex 24`. It is never exposed outside Docker.
+- `RCON_PASSWORD` is optional. It is used internally to save the world safely during backups and shutdowns. Leave it empty and a random one is generated and kept in the data volume. It is never exposed outside Docker.
 - `MC_VERSION` is the Minecraft version to run. Keep `latest`, or pick one from `make versions`, such as `1.21.4`. **Choose now:** worlds can be upgraded to a newer version later, but never moved back to an older one. See [Minecraft versions](minecraft-versions.md).
 
 **3. Start it.**

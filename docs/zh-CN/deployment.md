@@ -30,7 +30,7 @@ cp .env.example .env
 id -u && id -g          # put these into PUID / PGID
 ```
 
-在 `.env` 中至少设置 `EULA`、`RCON_PASSWORD`、`MC_VERSION`（固定为确切版本）、`MEMORY` 和 `CONTAINER_MEMORY`。
+在 `.env` 中至少设置 `EULA`、`MC_VERSION`（固定为确切版本）、`MEMORY` 和 `CONTAINER_MEMORY`。
 
 | 服务器内存 | `MEMORY` | `CONTAINER_MEMORY` |
 |---|---|---|
@@ -96,7 +96,7 @@ make up
 ## 安全检查清单
 
 - 除非需要离线模式，否则保持 `ONLINE_MODE=true`；如果需要，请阅读 [风险说明](offline-mode.md#风险用户名不会被验证)。
-- 使用较长的随机 `RCON_PASSWORD`。永远不要发布 25575 端口。
+- 将 `RCON_PASSWORD` 留空以自动生成，或使用较长的随机值。永远不要发布 25575 端口。
 - 保持 `.env` 私密，它包含 RCON 密码。它已被排除在 git 和 Docker 构建之外。
 - 保持主机系统更新，并用 SSH 密钥代替密码。
 - 只给需要的人管理员权限；`make cmd C="deop Name"` 可以收回。

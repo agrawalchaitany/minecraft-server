@@ -111,7 +111,7 @@ Los ajustes se comprueban antes de que arranque nada. Un valor incorrecto detien
 | Ajuste | Ejemplo de valor rechazado | Mensaje |
 |---|---|---|
 | `EULA` | `false` | hay que aceptar el EULA |
-| `RCON_PASSWORD` | el valor de ejemplo, o uno con barra invertida | explica el motivo y cómo generar una |
+| `RCON_PASSWORD` | el antiguo valor de ejemplo, o uno con barra invertida (vacío está bien: se genera una) | explica el motivo y cómo generar una |
 | `MEMORY` | `2GB` | debe ser como `2G` o `1536M` |
 | `MEMORY` / `CONTAINER_MEMORY` | `4G` en un contenedor de `3G` | dice qué `CONTAINER_MEMORY` poner |
 | `WATCHDOG_INTERVAL`, `WATCHDOG_FAILURES` | `1m` | debe ser un número entero |

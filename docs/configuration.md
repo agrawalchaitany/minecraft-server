@@ -26,7 +26,7 @@ Invalid values are rejected at startup with a message naming the setting, so a t
 | Variable | Default | Description |
 |---|---|---|
 | `EULA` | `false` | Must be `TRUE` to accept the [Minecraft EULA](https://aka.ms/MinecraftEULA). |
-| `RCON_PASSWORD` | placeholder | Internal password for safe saves, backups, and the console. Must be changed from the placeholder. No backslashes, and no leading or trailing spaces. `openssl rand -hex 24` makes a good one. |
+| `RCON_PASSWORD` | empty | Optional internal password for safe saves, backups, and the console. Leave it empty and a random one is generated on first start and kept in the data volume as `.rcon-password`. If you set your own: no backslashes, and no leading or trailing spaces. `openssl rand -hex 24` makes a good one. |
 
 ## Version
 

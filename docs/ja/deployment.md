@@ -30,7 +30,7 @@ cp .env.example .env
 id -u && id -g          # put these into PUID / PGID
 ```
 
-`.env` で少なくとも `EULA`、`RCON_PASSWORD`、`MC_VERSION`（具体的なバージョンに固定）、`MEMORY`、`CONTAINER_MEMORY` を設定します。
+`.env` で少なくとも `EULA`、`MC_VERSION`（具体的なバージョンに固定）、`MEMORY`、`CONTAINER_MEMORY` を設定します。
 
 | サーバーの RAM | `MEMORY` | `CONTAINER_MEMORY` |
 |---|---|---|
@@ -96,7 +96,7 @@ make up
 ## セキュリティチェックリスト
 
 - オフラインモードが必要でなければ `ONLINE_MODE=true` のままにし、必要な場合は [リスク](offline-mode.md#リスク-ユーザー名は確認されない) を読んでください。
-- 長くランダムな `RCON_PASSWORD` を使ってください。ポート 25575 は絶対に公開しないでください。
+- `RCON_PASSWORD` を空にして自動生成させるか、長くランダムな値を使ってください。ポート 25575 は絶対に公開しないでください。
 - `.env` は非公開にしてください。RCON パスワードが入っています。git と Docker のビルドからは除外されています。
 - ホストを最新に保ち、パスワードではなく SSH 鍵を使ってください。
 - オペレーターは必要な人だけにしてください。`make cmd C="deop Name"` で外せます。

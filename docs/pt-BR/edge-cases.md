@@ -10,7 +10,8 @@ Como o servidor se comporta em situações incomuns. As entradas marcadas como *
 | Situação | Comportamento | |
 |---|---|---|
 | `EULA` não é `TRUE` | Recusa iniciar e explica como aceitar | testado |
-| `RCON_PASSWORD` com o valor de exemplo | Recusa iniciar | testado |
+| `RCON_PASSWORD` vazio | Gera uma aleatória em `/data/.rcon-password`, reutilizada nos reinícios e pelo contêiner de backup | testado |
+| `RCON_PASSWORD` com o antigo valor de exemplo | Recusa iniciar | testado |
 | `RCON_PASSWORD` com barra invertida ou espaços nas pontas | Recusa iniciar. O `server.properties` mudaria a senha em silêncio, quebrando os salvamentos seguros. | testado |
 | `MEMORY=2GB` (formato errado) | Recusa iniciar: "must look like 2G or 1536M" | testado |
 | `MEMORY` maior do que o `CONTAINER_MEMORY` permite | Recusa iniciar e diz qual `CONTAINER_MEMORY` definir, em vez de um loop de encerramentos por falta de memória | testado |

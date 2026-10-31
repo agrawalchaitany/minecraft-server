@@ -111,7 +111,7 @@ As configurações são verificadas antes de qualquer coisa iniciar. Um valor ru
 | Configuração | Exemplo de valor recusado | Mensagem |
 |---|---|---|
 | `EULA` | `false` | é preciso aceitar o EULA |
-| `RCON_PASSWORD` | o valor de exemplo, ou um com barra invertida | explica o motivo e como gerar uma |
+| `RCON_PASSWORD` | o antigo valor de exemplo, ou um com barra invertida (vazio não tem problema: uma é gerada) | explica o motivo e como gerar uma |
 | `MEMORY` | `2GB` | precisa ser como `2G` ou `1536M` |
 | `MEMORY` / `CONTAINER_MEMORY` | `4G` num contêiner de `3G` | diz qual `CONTAINER_MEMORY` definir |
 | `WATCHDOG_INTERVAL`, `WATCHDOG_FAILURES` | `1m` | precisa ser um número inteiro |

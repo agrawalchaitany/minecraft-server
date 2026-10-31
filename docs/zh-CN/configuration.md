@@ -26,7 +26,7 @@ cp .env.example .env
 | 变量 | 默认值 | 说明 |
 |---|---|---|
 | `EULA` | `false` | 必须为 `TRUE`，表示接受 [Minecraft EULA](https://aka.ms/MinecraftEULA)。 |
-| `RCON_PASSWORD` | 占位值 | 用于安全保存、备份和控制台的内部密码。必须修改占位值。不能包含反斜杠，开头和结尾不能有空格。用 `openssl rand -hex 24` 生成就很好。 |
+| `RCON_PASSWORD` | 空 | 可选的内部密码，用于安全保存、备份和控制台。留空时，首次启动会生成一个随机密码，并以 `.rcon-password` 保存在数据卷中。如果自己设置：不能包含反斜杠，开头和结尾不能有空格。用 `openssl rand -hex 24` 生成就很好。 |
 
 ## 版本
 

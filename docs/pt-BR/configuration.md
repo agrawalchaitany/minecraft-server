@@ -26,7 +26,7 @@ Valores inválidos são recusados na inicialização com uma mensagem que cita a
 | Variável | Padrão | Descrição |
 |---|---|---|
 | `EULA` | `false` | Precisa ser `TRUE` para aceitar o [EULA do Minecraft](https://aka.ms/MinecraftEULA). |
-| `RCON_PASSWORD` | valor de exemplo | Senha interna para salvamentos seguros, backups e o console. Precisa ser trocada do valor de exemplo. Sem barras invertidas e sem espaços no começo ou no fim. `openssl rand -hex 24` gera uma boa. |
+| `RCON_PASSWORD` | vazio | Senha interna opcional para salvamentos seguros, backups e o console. Se ficar vazia, uma aleatória é gerada na primeira inicialização e guardada no volume de dados como `.rcon-password`. Se definir a sua: sem barras invertidas e sem espaços no começo ou no fim. `openssl rand -hex 24` gera uma boa. |
 
 ## Versão
 

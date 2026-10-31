@@ -26,7 +26,7 @@ cp .env.example .env
 | 변수 | 기본값 | 설명 |
 |---|---|---|
 | `EULA` | `false` | [Minecraft EULA](https://aka.ms/MinecraftEULA)에 동의하려면 `TRUE`여야 합니다. |
-| `RCON_PASSWORD` | 예시 값 | 안전한 저장, 백업, 콘솔에 쓰는 내부 비밀번호. 예시 값에서 반드시 바꿔야 합니다. 백슬래시와 앞뒤 공백은 안 됩니다. `openssl rand -hex 24`로 좋은 비밀번호를 만들 수 있습니다. |
+| `RCON_PASSWORD` | 비어 있음 | 안전한 저장, 백업, 콘솔에 쓰는 선택 사항인 내부 비밀번호. 비워 두면 처음 시작할 때 무작위 비밀번호가 만들어져 데이터 볼륨에 `.rcon-password`로 저장됩니다. 직접 정한다면: 백슬래시와 앞뒤 공백은 안 됩니다. `openssl rand -hex 24`로 좋은 비밀번호를 만들 수 있습니다. |
 
 ## 버전
 

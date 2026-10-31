@@ -30,7 +30,7 @@ cp .env.example .env
 id -u && id -g          # put these into PUID / PGID
 ```
 
-En `.env`, define como mínimo `EULA`, `RCON_PASSWORD`, `MC_VERSION` (fija una versión exacta), `MEMORY` y `CONTAINER_MEMORY`.
+En `.env`, define como mínimo `EULA`, `MC_VERSION` (fija una versión exacta), `MEMORY` y `CONTAINER_MEMORY`.
 
 | RAM del servidor | `MEMORY` | `CONTAINER_MEMORY` |
 |---|---|---|
@@ -96,7 +96,7 @@ Tu mundo vive en el volumen de Docker y no se ve afectado al sustituir los archi
 ## Lista de seguridad
 
 - Mantén `ONLINE_MODE=true` salvo que necesites el modo sin conexión, y si lo necesitas, lee [los riesgos](offline-mode.md#el-riesgo-los-nombres-de-usuario-no-se-verifican).
-- Usa un `RCON_PASSWORD` largo y aleatorio. Nunca publiques el puerto 25575.
+- Deja `RCON_PASSWORD` vacío para que se genere uno, o usa un valor largo y aleatorio. Nunca publiques el puerto 25575.
 - Mantén `.env` en privado; contiene la contraseña RCON. Está excluido de git y del build de Docker.
 - Mantén el sistema actualizado y usa claves SSH en lugar de contraseñas.
 - Haz operadores solo a quienes lo necesiten; `make cmd C="deop Name"` lo quita.

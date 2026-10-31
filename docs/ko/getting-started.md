@@ -31,16 +31,15 @@
 cp .env.example .env
 ```
 
-**2. `.env`에서 세 가지 값을 바꿉니다.**
+**2. `.env`에서 두 가지 값을 바꿉니다.**
 
 ```env
 EULA=TRUE
-RCON_PASSWORD=paste-a-long-random-value-here
 MC_VERSION=latest
 ```
 
 - `EULA=TRUE`는 [Minecraft EULA](https://aka.ms/MinecraftEULA)에 동의한다는 뜻입니다. 이것이 없으면 서버가 시작되지 않습니다.
-- `RCON_PASSWORD`는 내부적으로, 백업과 종료 중에 월드를 안전하게 저장하는 데 쓰입니다. `openssl rand -hex 24`로 만드세요. Docker 밖으로는 절대 노출되지 않습니다.
+- `RCON_PASSWORD`는 선택 사항입니다. 내부적으로, 백업과 종료 중에 월드를 안전하게 저장하는 데 쓰입니다. 비워 두면 무작위 비밀번호가 만들어져 데이터 볼륨에 저장됩니다. Docker 밖으로는 절대 노출되지 않습니다.
 - `MC_VERSION`은 실행할 Minecraft 버전입니다. `latest`로 두거나 `make versions`에서 `1.21.4` 같은 버전을 고르세요. **지금 정하세요:** 월드는 나중에 새 버전으로 업그레이드할 수 있지만 이전 버전으로는 절대 되돌릴 수 없습니다. [Minecraft 버전](minecraft-versions.md)을 참고하세요.
 
 **3. 시작합니다.**

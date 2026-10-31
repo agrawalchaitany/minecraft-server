@@ -18,7 +18,7 @@ make logs            # what did it say?
 `.env`에서 `EULA=TRUE`로 설정한 다음 `make up`.
 
 **"Set RCON_PASSWORD in .env to your own random value"** 또는 **"RCON_PASSWORD must not contain backslashes…"**
-`openssl rand -hex 24`의 결과를 `.env`에 넣으세요.
+`.env`에서 `RCON_PASSWORD`를 비워 자동으로 만들게 하거나, `openssl rand -hex 24`의 결과를 넣으세요.
 
 **"MEMORY … does not fit in the container limit"**
 `CONTAINER_MEMORY`를 메시지가 제안하는 값으로 올리거나 `MEMORY`를 낮추세요. macOS에서는 Docker Desktop의 메모리(**Settings → Resources**)도 확인하세요.

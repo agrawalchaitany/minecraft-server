@@ -30,7 +30,7 @@ cp .env.example .env
 id -u && id -g          # put these into PUID / PGID
 ```
 
-`.env`에서 최소한 `EULA`, `RCON_PASSWORD`, `MC_VERSION`(정확한 버전으로 고정), `MEMORY`, `CONTAINER_MEMORY`를 설정하세요.
+`.env`에서 최소한 `EULA`, `MC_VERSION`(정확한 버전으로 고정), `MEMORY`, `CONTAINER_MEMORY`를 설정하세요.
 
 | 서버 RAM | `MEMORY` | `CONTAINER_MEMORY` |
 |---|---|---|
@@ -96,7 +96,7 @@ make up
 ## 보안 체크리스트
 
 - 오프라인 모드가 필요하지 않다면 `ONLINE_MODE=true`를 유지하고, 필요하다면 [위험성](offline-mode.md#위험성-사용자-이름이-확인되지-않음)을 읽어 보세요.
-- 길고 무작위인 `RCON_PASSWORD`를 쓰세요. 포트 25575는 절대 공개하지 마세요.
+- `RCON_PASSWORD`를 비워 자동으로 만들게 하거나, 길고 무작위인 값을 쓰세요. 포트 25575는 절대 공개하지 마세요.
 - `.env`는 비공개로 유지하세요. RCON 비밀번호가 들어 있습니다. git과 Docker 빌드에서는 제외되어 있습니다.
 - 호스트를 최신 상태로 유지하고, 비밀번호 대신 SSH 키를 사용하세요.
 - 꼭 필요한 사람만 운영자로 만드세요. `make cmd C="deop Name"`으로 해제할 수 있습니다.

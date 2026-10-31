@@ -10,7 +10,8 @@
 | 情况 | 行为 | |
 |---|---|---|
 | `EULA` 不是 `TRUE` | 拒绝启动，并说明如何接受 | 已测试 |
-| `RCON_PASSWORD` 仍是占位值 | 拒绝启动 | 已测试 |
+| `RCON_PASSWORD` 留空 | 在 `/data/.rcon-password` 中生成随机密码，重启和备份容器都会复用 | 已测试 |
+| `RCON_PASSWORD` 是旧的占位值 | 拒绝启动 | 已测试 |
 | `RCON_PASSWORD` 包含反斜杠或首尾空格 | 拒绝启动。`server.properties` 会悄悄改变它，导致安全保存失效。 | 已测试 |
 | `MEMORY=2GB`（格式错误） | 拒绝启动："must look like 2G or 1536M" | 已测试 |
 | `MEMORY` 超出 `CONTAINER_MEMORY` 允许的范围 | 拒绝启动并说明该设置多少 `CONTAINER_MEMORY`，而不是陷入内存不足被杀的循环 | 已测试 |

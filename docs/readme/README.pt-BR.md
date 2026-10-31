@@ -75,17 +75,77 @@ Passo a passo completo: **[Primeiros passos](../pt-BR/getting-started.md)**.
 
 ## Recursos
 
-| Área | O que você ganha |
-|---|---|
-| <img src="../assets/icons/versions.svg" width="20" height="20" alt=""> **Qualquer versão** | Minecraft 1.17 até a mais recente. O Java certo (17, 21 ou 25) é escolhido automaticamente. Atualizações fazem backup do mundo antes; downgrades que o corromperiam são recusados. [Mais](../pt-BR/minecraft-versions.md) |
-| <img src="../assets/icons/reliability.svg" width="20" height="20" alt=""> **Autorrecuperação** | Reinicia após travamentos e falta de memória. Uma verificação de saúde e um watchdog que reinicia um servidor congelado. [Mais](../pt-BR/reliability.md) |
-| <img src="../assets/icons/shutdown.svg" width="20" height="20" alt=""> **Desligamento seguro** | Toda parada salva antes todos os mundos pelo console do servidor. [Mais](../pt-BR/reliability.md#desligamento-seguro) |
-| <img src="../assets/icons/backups.svg" width="20" height="20" alt=""> **Backups** | Programados e consistentes mesmo com jogadores online, com trava para nunca se sobreporem, verificados, com checagem de espaço em disco e rotação. Feitos automaticamente antes de atualizações, migrações, atualizações de plugins e restaurações. [Mais](../pt-BR/backups.md) |
-| <img src="../assets/icons/restore.svg" width="20" height="20" alt=""> **Restauração segura** | Um comando. Verifica o arquivo primeiro, faz um backup de segurança e extrai numa pasta temporária, para que uma falha não faça você perder o mundo atual. [Mais](../pt-BR/backups.md#restaurar) |
-| <img src="../assets/icons/plugins.svg" width="20" height="20" alt=""> **Gerenciador de plugins** | Liste os plugins no `plugins.txt`. Para cada um, é escolhida a versão mais recente que realmente funciona no seu Minecraft e Java, inspecionando o próprio jar. Dependências obrigatórias são instaladas. Conflitos e duplicatas são detectados. Atualizações sob demanda ou diárias. [Mais](../pt-BR/plugins.md) |
-| <img src="../assets/icons/players.svg" width="20" height="20" alt=""> **Modo offline** | Deixe entrar jogadores sem conta oficial, com as regras de nome de usuário da Mojang aplicadas e os inventários mantidos ao trocar de modo. [Mais](../pt-BR/offline-mode.md) |
-| <img src="../assets/icons/guard.svg" width="20" height="20" alt=""> **Proteções** | Cada configuração é validada na inicialização com uma mensagem clara. Nada de loops de travamento por erros de digitação. [Mais](../pt-BR/reliability.md#validação-da-configuração) |
-| <img src="../assets/icons/security.svg" width="20" height="20" alt=""> **Privilégio mínimo** | Roda como usuário sem privilégios de root. O console remoto nunca fica exposto fora do Docker. Os logs são rotacionados. |
+<table>
+<tr>
+<td width="33%" valign="top">
+
+<img src="../assets/icons/versions.svg" width="24" height="24" alt=""> **Qualquer versão**
+
+Minecraft 1.17 até a mais recente. O Java certo (17, 21 ou 25) é escolhido automaticamente. Atualizações fazem backup do mundo antes; downgrades que o corromperiam são recusados. [Mais](../pt-BR/minecraft-versions.md)
+
+</td>
+<td width="33%" valign="top">
+
+<img src="../assets/icons/reliability.svg" width="24" height="24" alt=""> **Autorrecuperação**
+
+Reinicia após travamentos e falta de memória. Uma verificação de saúde e um watchdog que reinicia um servidor congelado. [Mais](../pt-BR/reliability.md)
+
+</td>
+<td width="33%" valign="top">
+
+<img src="../assets/icons/shutdown.svg" width="24" height="24" alt=""> **Desligamento seguro**
+
+Toda parada salva antes todos os mundos pelo console do servidor. [Mais](../pt-BR/reliability.md#desligamento-seguro)
+
+</td>
+</tr>
+<tr>
+<td width="33%" valign="top">
+
+<img src="../assets/icons/backups.svg" width="24" height="24" alt=""> **Backups**
+
+Programados e consistentes mesmo com jogadores online, com trava para nunca se sobreporem, verificados, com checagem de espaço em disco e rotação. Feitos automaticamente antes de atualizações, migrações, atualizações de plugins e restaurações. [Mais](../pt-BR/backups.md)
+
+</td>
+<td width="33%" valign="top">
+
+<img src="../assets/icons/restore.svg" width="24" height="24" alt=""> **Restauração segura**
+
+Um comando. Verifica o arquivo primeiro, faz um backup de segurança e extrai numa pasta temporária, para que uma falha não faça você perder o mundo atual. [Mais](../pt-BR/backups.md#restaurar)
+
+</td>
+<td width="33%" valign="top">
+
+<img src="../assets/icons/plugins.svg" width="24" height="24" alt=""> **Gerenciador de plugins**
+
+Liste os plugins no `plugins.txt`. Para cada um, é escolhida a versão mais recente que realmente funciona no seu Minecraft e Java, inspecionando o próprio jar. Dependências obrigatórias são instaladas. Conflitos e duplicatas são detectados. Atualizações sob demanda ou diárias. [Mais](../pt-BR/plugins.md)
+
+</td>
+</tr>
+<tr>
+<td width="33%" valign="top">
+
+<img src="../assets/icons/players.svg" width="24" height="24" alt=""> **Modo offline**
+
+Deixe entrar jogadores sem conta oficial, com as regras de nome de usuário da Mojang aplicadas e os inventários mantidos ao trocar de modo. [Mais](../pt-BR/offline-mode.md)
+
+</td>
+<td width="33%" valign="top">
+
+<img src="../assets/icons/guard.svg" width="24" height="24" alt=""> **Proteções**
+
+Cada configuração é validada na inicialização com uma mensagem clara. Nada de loops de travamento por erros de digitação. [Mais](../pt-BR/reliability.md#validação-da-configuração)
+
+</td>
+<td width="33%" valign="top">
+
+<img src="../assets/icons/security.svg" width="24" height="24" alt=""> **Privilégio mínimo**
+
+Roda como usuário sem privilégios de root. O console remoto nunca fica exposto fora do Docker. Os logs são rotacionados.
+
+</td>
+</tr>
+</table>
 
 ## Comandos do dia a dia
 

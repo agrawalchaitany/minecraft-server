@@ -111,7 +111,7 @@ STOP_TIMEOUT=5m
 | 설정 | 거부되는 값의 예 | 메시지 |
 |---|---|---|
 | `EULA` | `false` | EULA에 동의해야 함 |
-| `RCON_PASSWORD` | 예시 값, 또는 백슬래시가 들어간 값 | 이유와 만드는 방법을 설명 |
+| `RCON_PASSWORD` | 예전 예시 값, 또는 백슬래시가 들어간 값 (비워 두는 것은 괜찮음: 자동으로 만들어짐) | 이유와 만드는 방법을 설명 |
 | `MEMORY` | `2GB` | `2G`나 `1536M` 형식이어야 함 |
 | `MEMORY` / `CONTAINER_MEMORY` | `3G` 컨테이너에 `4G` | 설정해야 할 `CONTAINER_MEMORY`를 알려 줌 |
 | `WATCHDOG_INTERVAL`, `WATCHDOG_FAILURES` | `1m` | 정수여야 함 |

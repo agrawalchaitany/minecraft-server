@@ -26,7 +26,7 @@ Los valores no válidos se rechazan al arrancar con un mensaje que nombra el aju
 | Variable | Por defecto | Descripción |
 |---|---|---|
 | `EULA` | `false` | Debe ser `TRUE` para aceptar el [EULA de Minecraft](https://aka.ms/MinecraftEULA). |
-| `RCON_PASSWORD` | valor de ejemplo | Contraseña interna para guardados seguros, copias de seguridad y la consola. Hay que cambiar el valor de ejemplo. Sin barras invertidas ni espacios al principio o al final. `openssl rand -hex 24` genera una buena. |
+| `RCON_PASSWORD` | vacío | Contraseña interna opcional para guardados seguros, copias de seguridad y la consola. Si la dejas vacía, se genera una aleatoria en el primer arranque y se guarda en el volumen de datos como `.rcon-password`. Si pones la tuya: sin barras invertidas ni espacios al principio o al final. `openssl rand -hex 24` genera una buena. |
 
 ## Versión
 

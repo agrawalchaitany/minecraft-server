@@ -31,16 +31,15 @@
 cp .env.example .env
 ```
 
-**2. `.env` の 3 つの値を変更します。**
+**2. `.env` の 2 つの値を変更します。**
 
 ```env
 EULA=TRUE
-RCON_PASSWORD=paste-a-long-random-value-here
 MC_VERSION=latest
 ```
 
 - `EULA=TRUE` は [Minecraft EULA](https://aka.ms/MinecraftEULA) に同意するという意味です。これがないとサーバーは起動しません。
-- `RCON_PASSWORD` は内部で使われ、バックアップ時や停止時にワールドを安全に保存するためのものです。`openssl rand -hex 24` で生成してください。Docker の外には公開されません。
+- `RCON_PASSWORD` は任意です。内部で使われ、バックアップ時や停止時にワールドを安全に保存するためのものです。空のままにするとランダムなものが生成され、データボリュームに保存されます。Docker の外には公開されません。
 - `MC_VERSION` は動かす Minecraft のバージョンです。`latest` のままにするか、`make versions` から `1.21.4` などを選びます。**今決めてください:** ワールドは後で新しいバージョンにアップグレードできますが、古いバージョンには戻せません。[Minecraft のバージョン](minecraft-versions.md) を参照してください。
 
 **3. 起動します。**
