@@ -75,50 +75,86 @@ Full walkthrough: **[Getting started](docs/getting-started.md)**.
 
 ## Features
 
-<img src="docs/assets/icons/versions.svg" width="36" height="36" align="left" hspace="10" alt="">
+<table>
+<tr>
+<td width="33%" valign="top" align="center">
 
-**Any version**<br>
+<br><img src="docs/assets/icons/versions.svg" width="32" height="32" alt=""><br>**Any version**
+
 Minecraft 1.17 to the latest. The matching Java (17, 21, or 25) is chosen automatically. Upgrades back up the world first; downgrades that would corrupt it are refused. [More](docs/minecraft-versions.md)
+<br>&nbsp;
 
-<img src="docs/assets/icons/reliability.svg" width="36" height="36" align="left" hspace="10" alt="">
+</td>
+<td width="33%" valign="top" align="center">
 
-**Self-healing**<br>
+<br><img src="docs/assets/icons/reliability.svg" width="32" height="32" alt=""><br>**Self-healing**
+
 Restarts after crashes and out-of-memory errors. A health check, plus a watchdog that restarts a frozen server. [More](docs/reliability.md)
+<br>&nbsp;
 
-<img src="docs/assets/icons/shutdown.svg" width="36" height="36" align="left" hspace="10" alt="">
+</td>
+<td width="33%" valign="top" align="center">
 
-**Safe shutdown**<br>
+<br><img src="docs/assets/icons/shutdown.svg" width="32" height="32" alt=""><br>**Safe shutdown**
+
 Every stop saves all worlds through the server console first. [More](docs/reliability.md#graceful-shutdown)
+<br>&nbsp;
 
-<img src="docs/assets/icons/backups.svg" width="36" height="36" align="left" hspace="10" alt="">
+</td>
+</tr>
+<tr>
+<td width="33%" valign="top" align="center">
 
-**Backups**<br>
+<br><img src="docs/assets/icons/backups.svg" width="32" height="32" alt=""><br>**Backups**
+
 Scheduled and consistent while players are online, locked so two never overlap, verified, checked for disk space, and rotated. Taken automatically before upgrades, migrations, plugin updates, and restores. [More](docs/backups.md)
+<br>&nbsp;
 
-<img src="docs/assets/icons/restore.svg" width="36" height="36" align="left" hspace="10" alt="">
+</td>
+<td width="33%" valign="top" align="center">
 
-**Safe restore**<br>
+<br><img src="docs/assets/icons/restore.svg" width="32" height="32" alt=""><br>**Safe restore**
+
 One command. Checks the file first, takes a safety backup, and extracts to a staging folder so a failure can't lose the current world. [More](docs/backups.md#restoring)
+<br>&nbsp;
 
-<img src="docs/assets/icons/plugins.svg" width="36" height="36" align="left" hspace="10" alt="">
+</td>
+<td width="33%" valign="top" align="center">
 
-**Plugin manager**<br>
+<br><img src="docs/assets/icons/plugins.svg" width="32" height="32" alt=""><br>**Plugin manager**
+
 List plugins in `plugins.txt`. For each one, the newest version that really works on your Minecraft and Java is chosen, by inspecting the jar itself. Required dependencies are installed. Conflicts and duplicates are caught. Updates on demand or daily. [More](docs/plugins.md)
+<br>&nbsp;
 
-<img src="docs/assets/icons/players.svg" width="36" height="36" align="left" hspace="10" alt="">
+</td>
+</tr>
+<tr>
+<td width="33%" valign="top" align="center">
 
-**Offline mode**<br>
+<br><img src="docs/assets/icons/players.svg" width="32" height="32" alt=""><br>**Offline mode**
+
 Let players without an official account join, with Mojang's username rules enforced and player inventories kept when switching modes. [More](docs/offline-mode.md)
+<br>&nbsp;
 
-<img src="docs/assets/icons/guard.svg" width="36" height="36" align="left" hspace="10" alt="">
+</td>
+<td width="33%" valign="top" align="center">
 
-**Guard rails**<br>
+<br><img src="docs/assets/icons/guard.svg" width="32" height="32" alt=""><br>**Guard rails**
+
 Every setting is validated at startup with a clear message. No crash loops from typos. [More](docs/reliability.md#configuration-validation)
+<br>&nbsp;
 
-<img src="docs/assets/icons/security.svg" width="36" height="36" align="left" hspace="10" alt="">
+</td>
+<td width="33%" valign="top" align="center">
 
-**Least privilege**<br>
+<br><img src="docs/assets/icons/security.svg" width="32" height="32" alt=""><br>**Least privilege**
+
 Runs as a non-root user. The remote console is never exposed outside Docker. Logs are rotated.
+<br>&nbsp;
+
+</td>
+</tr>
+</table>
 
 ## Everyday commands
 

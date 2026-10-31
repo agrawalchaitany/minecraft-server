@@ -75,50 +75,86 @@ Guía completa: **[Primeros pasos](../es/getting-started.md)**.
 
 ## Características
 
-<img src="../assets/icons/versions.svg" width="36" height="36" align="left" hspace="10" alt="">
+<table>
+<tr>
+<td width="33%" valign="top" align="center">
 
-**Cualquier versión**<br>
+<br><img src="../assets/icons/versions.svg" width="32" height="32" alt=""><br>**Cualquier versión**
+
 Minecraft 1.17 hasta la más reciente. El Java adecuado (17, 21 o 25) se elige automáticamente. Antes de actualizar se hace una copia del mundo; se rechazan las bajadas de versión que lo dañarían. [Más](../es/minecraft-versions.md)
+<br>&nbsp;
 
-<img src="../assets/icons/reliability.svg" width="36" height="36" align="left" hspace="10" alt="">
+</td>
+<td width="33%" valign="top" align="center">
 
-**Autorreparación**<br>
+<br><img src="../assets/icons/reliability.svg" width="32" height="32" alt=""><br>**Autorreparación**
+
 Se reinicia tras fallos y errores de memoria. Una comprobación de salud y un watchdog que reinicia un servidor congelado. [Más](../es/reliability.md)
+<br>&nbsp;
 
-<img src="../assets/icons/shutdown.svg" width="36" height="36" align="left" hspace="10" alt="">
+</td>
+<td width="33%" valign="top" align="center">
 
-**Apagado seguro**<br>
+<br><img src="../assets/icons/shutdown.svg" width="32" height="32" alt=""><br>**Apagado seguro**
+
 Cada parada guarda primero todos los mundos a través de la consola del servidor. [Más](../es/reliability.md#apagado-seguro)
+<br>&nbsp;
 
-<img src="../assets/icons/backups.svg" width="36" height="36" align="left" hspace="10" alt="">
+</td>
+</tr>
+<tr>
+<td width="33%" valign="top" align="center">
 
-**Copias de seguridad**<br>
+<br><img src="../assets/icons/backups.svg" width="32" height="32" alt=""><br>**Copias de seguridad**
+
 Programadas y consistentes aunque haya jugadores conectados, con bloqueo para que nunca se solapen, verificadas, con control de espacio en disco y rotación. Se hacen automáticamente antes de actualizaciones, migraciones, actualizaciones de plugins y restauraciones. [Más](../es/backups.md)
+<br>&nbsp;
 
-<img src="../assets/icons/restore.svg" width="36" height="36" align="left" hspace="10" alt="">
+</td>
+<td width="33%" valign="top" align="center">
 
-**Restauración segura**<br>
+<br><img src="../assets/icons/restore.svg" width="32" height="32" alt=""><br>**Restauración segura**
+
 Un comando. Primero comprueba el archivo, hace una copia de seguridad de seguridad y extrae en una carpeta temporal, para que un fallo no pueda hacerte perder el mundo actual. [Más](../es/backups.md#restaurar)
+<br>&nbsp;
 
-<img src="../assets/icons/plugins.svg" width="36" height="36" align="left" hspace="10" alt="">
+</td>
+<td width="33%" valign="top" align="center">
 
-**Gestor de plugins**<br>
+<br><img src="../assets/icons/plugins.svg" width="32" height="32" alt=""><br>**Gestor de plugins**
+
 Lista los plugins en `plugins.txt`. Para cada uno se elige la versión más reciente que realmente funciona con tu Minecraft y tu Java, inspeccionando el propio jar. Se instalan las dependencias necesarias. Se detectan conflictos y duplicados. Actualizaciones bajo demanda o diarias. [Más](../es/plugins.md)
+<br>&nbsp;
 
-<img src="../assets/icons/players.svg" width="36" height="36" align="left" hspace="10" alt="">
+</td>
+</tr>
+<tr>
+<td width="33%" valign="top" align="center">
 
-**Modo sin conexión**<br>
+<br><img src="../assets/icons/players.svg" width="32" height="32" alt=""><br>**Modo sin conexión**
+
 Permite entrar a jugadores sin cuenta oficial, aplicando las reglas de nombres de usuario de Mojang y conservando sus inventarios al cambiar de modo. [Más](../es/offline-mode.md)
+<br>&nbsp;
 
-<img src="../assets/icons/guard.svg" width="36" height="36" align="left" hspace="10" alt="">
+</td>
+<td width="33%" valign="top" align="center">
 
-**Protecciones**<br>
+<br><img src="../assets/icons/guard.svg" width="32" height="32" alt=""><br>**Protecciones**
+
 Cada ajuste se valida al arrancar con un mensaje claro. Nada de bucles de fallos por erratas. [Más](../es/reliability.md#validación-de-la-configuración)
+<br>&nbsp;
 
-<img src="../assets/icons/security.svg" width="36" height="36" align="left" hspace="10" alt="">
+</td>
+<td width="33%" valign="top" align="center">
 
-**Mínimos privilegios**<br>
+<br><img src="../assets/icons/security.svg" width="32" height="32" alt=""><br>**Mínimos privilegios**
+
 Se ejecuta con un usuario sin privilegios de root. La consola remota nunca se expone fuera de Docker. Los logs se rotan.
+<br>&nbsp;
+
+</td>
+</tr>
+</table>
 
 ## Comandos del día a día
 
