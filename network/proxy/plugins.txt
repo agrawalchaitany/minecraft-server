@@ -1,0 +1,7 @@
+# Proxy (Velocity) plugins, installed by the plugin manager. One per line:
+#   <source: modrinth|hangar>  <project>  <latest|exact version>
+# After editing: make update-plugins S=proxy   (restarts the proxy, which disconnects everyone briefly)
+#
+# Login for cracked and premium players: premium accounts log in automatically,
+# cracked players /register <password> <password> once and /login <password> after.
+modrinth  veloauth  latest

@@ -1,0 +1,13 @@
+# Plugins for this server, installed by the plugin manager (see docs/plugins.md). One per line:
+#   <source: modrinth|hangar>  <project from the plugin page URL>  <latest|exact version>
+# After editing: make update-plugins S=kitpvp
+#
+# ViaVersion + ViaBackwards let players on other Minecraft versions join this server.
+modrinth  viaversion     latest
+modrinth  viabackwards   latest
+
+# KitPvP / FFA: kits, arenas, kill stats and combat logging. Setup: https://modrinth.com/plugin/ffautils
+modrinth  ffautils             latest
+# Optional 1.8-style combat (no attack cooldown), popular on KitPvP servers
+hangar    OldCombatMechanics   latest
+modrinth  worldedit            latest

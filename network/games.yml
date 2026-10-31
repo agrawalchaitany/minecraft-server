@@ -1,0 +1,55 @@
+# The games in the lobby menu. Each one is also registered on the proxy under the same id.
+#
+#   <id>:            must match the service name in compose.yaml (it is also the server's hostname)
+#     name:          shown in the menu
+#     icon:          any item id, e.g. GRASS_BLOCK, RED_BED, DIAMOND_SWORD (https://jd.papermc.io -> Material)
+#     slot:          position in the menu, 0-53 (row 2 starts at 9). Leave out to fill in order.
+#     description:   lines under the name
+#
+# A game that is switched off (make off GAME=<id>) stays in the menu, marked "Switched off".
+# After editing: make restart S=lobby, and make restart S=proxy if you added or removed a game.
+
+games:
+  survival:
+    name: Survival
+    icon: GRASS_BLOCK
+    slot: 10
+    description:
+      - Classic survival with friends
+      - Land claims and ranks
+
+  bedwars:
+    name: BedWars
+    icon: RED_BED
+    slot: 11
+    description:
+      - Protect your bed, break theirs
+      - Teams of up to 4
+
+  skywars:
+    name: SkyWars
+    icon: FEATHER
+    slot: 12
+    description:
+      - Last player standing on floating islands
+
+  kitpvp:
+    name: KitPvP
+    icon: DIAMOND_SWORD
+    slot: 14
+    description:
+      - Pick a kit and fight in the arena
+
+  racing:
+    name: Go-Kart Racing
+    icon: OAK_BOAT
+    slot: 15
+    description:
+      - Ice boat races with laps and checkpoints
+
+  anarchy:
+    name: Anarchy
+    icon: TNT
+    slot: 16
+    description:
+      - No rules. Anything goes.

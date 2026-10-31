@@ -1,0 +1,294 @@
+# Lobby network: players join one address, land in a lobby with a game menu, and pick a game.
+# Each game is its own container (own world, plugins and backups) that you switch on and off:
+#   make up                    proxy + login room + lobby (always on)
+#   make on GAME=survival      switch a game on;  make off GAME=survival  to switch it off
+#
+# To add a game: copy one game's two services below (server + backup, same profile name), add it to
+# games.yml, and create servers/<id>/plugins.txt. The id must be the same in all three places.
+name: mc-network
+
+x-logging: &logging
+  logging:
+    driver: json-file
+    options:
+      max-size: "10m"
+      max-file: "5"
+
+# Shared by every Paper server. The image is built once (by the lobby service) and reused.
+x-paper: &paper
+  <<: *logging
+  image: local/paper-network
+  pull_policy: never
+  restart: unless-stopped
+  env_file: .env
+  stdin_open: true
+  tty: true
+  # Time allowed to save worlds on stop before Docker force-kills the server.
+  stop_grace_period: ${STOP_TIMEOUT:-2m}
+
+x-backup: &backup
+  <<: *logging
+  image: local/paper-network
+  pull_policy: never
+  command: backup
+  restart: unless-stopped
+  env_file: .env
+  healthcheck:
+    disable: true
+
+services:
+  # ---- Always on ----
+
+  # The only published port. Logs players in (VeloAuth) and moves them between servers.
+  proxy:
+    <<: *logging
+    image: local/velocity-proxy
+    build:
+      context: ..
+      dockerfile: network/proxy/Dockerfile
+      args:
+        VELOCITY_VERSION: ${VELOCITY_VERSION:-latest}
+        CACHE_BUST: ${CACHE_BUST:-0}
+    pull_policy: build
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "${SERVER_PORT:-25565}:25565"
+    volumes:
+      - proxy-data:/data
+      - ./proxy:/config/proxy:ro
+      - ./games.yml:/config/network/games.yml:ro
+    stdin_open: true
+    tty: true
+    mem_limit: ${PROXY_RAM:-768M}
+
+  # Login waiting room: players stand here until they /login or /register (premium players pass straight through).
+  limbo:
+    <<: *paper
+    environment:
+      NETWORK_ROLE: limbo
+      MEMORY: auto
+      GAMEMODE: adventure
+      DIFFICULTY: peaceful
+      PVP: "false"
+      LEVEL_TYPE: minecraft:flat
+      GENERATOR_SETTINGS: '{"layers":[{"block":"minecraft:bedrock","height":1},{"block":"minecraft:dirt","height":2},{"block":"minecraft:grass_block","height":1}],"biome":"minecraft:plains"}'
+      GENERATE_STRUCTURES: "false"
+      ALLOW_NETHER: "false"
+      SPAWN_PROTECTION: "0"
+      VIEW_DISTANCE: "3"
+      SIMULATION_DISTANCE: "3"
+    mem_limit: ${LIMBO_RAM:-1G}
+    volumes:
+      - limbo-data:/data
+      - ./servers/limbo:/config/plugins:ro
+
+  # The hub with the game menu (compass). Ops can build in it (creative mode: /gamemode creative).
+  lobby:
+    <<: *paper
+    build:
+      context: ..
+      args:
+        MC_VERSION: ${MC_VERSION:-latest}
+        PAPER_BUILD: ${PAPER_BUILD:-latest}
+        # Set automatically by `make` from MC_VERSION.
+        JAVA_VERSION: ${JAVA_VERSION:-25}
+        CACHE_BUST: ${CACHE_BUST:-0}
+    pull_policy: build
+    environment:
+      NETWORK_ROLE: lobby
+      MEMORY: auto
+      GAMEMODE: adventure
+      DIFFICULTY: peaceful
+      PVP: "false"
+      LEVEL_TYPE: minecraft:flat
+      GENERATOR_SETTINGS: '{"layers":[{"block":"minecraft:bedrock","height":1},{"block":"minecraft:dirt","height":2},{"block":"minecraft:grass_block","height":1}],"biome":"minecraft:plains"}'
+      GENERATE_STRUCTURES: "false"
+      ALLOW_NETHER: "false"
+      SPAWN_PROTECTION: "0"
+      VIEW_DISTANCE: "6"
+      SIMULATION_DISTANCE: "4"
+    mem_limit: ${LOBBY_RAM:-1536M}
+    volumes:
+      - lobby-data:/data
+      - ./servers/lobby:/config/plugins:ro
+      - ./games.yml:/config/network/games.yml:ro
+      - ./backups/lobby:/backups
+
+  lobby-backup:
+    <<: *backup
+    environment:
+      RCON_HOST: lobby
+    volumes:
+      - lobby-data:/data:ro
+      - ./backups/lobby:/backups
+    depends_on:
+      lobby:
+        condition: service_healthy
+
+  # ---- Games: switched on and off with make on/off GAME=<id> ----
+
+  survival:
+    <<: *paper
+    profiles: [survival]
+    environment:
+      NETWORK_ROLE: game
+      MEMORY: auto
+      GAMEMODE: survival
+      DIFFICULTY: normal
+      PVP: "true"
+    mem_limit: ${SURVIVAL_RAM:-2560M}
+    volumes:
+      - survival-data:/data
+      - ./servers/survival:/config/plugins:ro
+      - ./backups/survival:/backups
+  survival-backup:
+    <<: *backup
+    profiles: [survival]
+    environment:
+      RCON_HOST: survival
+    volumes:
+      - survival-data:/data:ro
+      - ./backups/survival:/backups
+    depends_on:
+      survival:
+        condition: service_healthy
+
+  bedwars:
+    <<: *paper
+    profiles: [bedwars]
+    environment:
+      NETWORK_ROLE: game
+      MEMORY: auto
+      DIFFICULTY: normal
+      ALLOW_NETHER: "false"
+    mem_limit: ${BEDWARS_RAM:-2G}
+    volumes:
+      - bedwars-data:/data
+      - ./servers/bedwars:/config/plugins:ro
+      - ./backups/bedwars:/backups
+  bedwars-backup:
+    <<: *backup
+    profiles: [bedwars]
+    environment:
+      RCON_HOST: bedwars
+    volumes:
+      - bedwars-data:/data:ro
+      - ./backups/bedwars:/backups
+    depends_on:
+      bedwars:
+        condition: service_healthy
+
+  skywars:
+    <<: *paper
+    profiles: [skywars]
+    environment:
+      NETWORK_ROLE: game
+      MEMORY: auto
+      DIFFICULTY: normal
+      ALLOW_NETHER: "false"
+    mem_limit: ${SKYWARS_RAM:-2G}
+    volumes:
+      - skywars-data:/data
+      - ./servers/skywars:/config/plugins:ro
+      - ./backups/skywars:/backups
+  skywars-backup:
+    <<: *backup
+    profiles: [skywars]
+    environment:
+      RCON_HOST: skywars
+    volumes:
+      - skywars-data:/data:ro
+      - ./backups/skywars:/backups
+    depends_on:
+      skywars:
+        condition: service_healthy
+
+  kitpvp:
+    <<: *paper
+    profiles: [kitpvp]
+    environment:
+      NETWORK_ROLE: game
+      MEMORY: auto
+      DIFFICULTY: normal
+      PVP: "true"
+      ALLOW_NETHER: "false"
+    mem_limit: ${KITPVP_RAM:-2G}
+    volumes:
+      - kitpvp-data:/data
+      - ./servers/kitpvp:/config/plugins:ro
+      - ./backups/kitpvp:/backups
+  kitpvp-backup:
+    <<: *backup
+    profiles: [kitpvp]
+    environment:
+      RCON_HOST: kitpvp
+    volumes:
+      - kitpvp-data:/data:ro
+      - ./backups/kitpvp:/backups
+    depends_on:
+      kitpvp:
+        condition: service_healthy
+
+  racing:
+    <<: *paper
+    profiles: [racing]
+    environment:
+      NETWORK_ROLE: game
+      MEMORY: auto
+      DIFFICULTY: peaceful
+      PVP: "false"
+      ALLOW_NETHER: "false"
+    mem_limit: ${RACING_RAM:-2G}
+    volumes:
+      - racing-data:/data
+      - ./servers/racing:/config/plugins:ro
+      - ./backups/racing:/backups
+  racing-backup:
+    <<: *backup
+    profiles: [racing]
+    environment:
+      RCON_HOST: racing
+    volumes:
+      - racing-data:/data:ro
+      - ./backups/racing:/backups
+    depends_on:
+      racing:
+        condition: service_healthy
+
+  anarchy:
+    <<: *paper
+    profiles: [anarchy]
+    environment:
+      NETWORK_ROLE: game
+      MEMORY: auto
+      GAMEMODE: survival
+      DIFFICULTY: hard
+      PVP: "true"
+    mem_limit: ${ANARCHY_RAM:-2560M}
+    volumes:
+      - anarchy-data:/data
+      - ./servers/anarchy:/config/plugins:ro
+      - ./backups/anarchy:/backups
+  anarchy-backup:
+    <<: *backup
+    profiles: [anarchy]
+    environment:
+      RCON_HOST: anarchy
+    volumes:
+      - anarchy-data:/data:ro
+      - ./backups/anarchy:/backups
+    depends_on:
+      anarchy:
+        condition: service_healthy
+
+volumes:
+  proxy-data:
+  limbo-data:
+  lobby-data:
+  survival-data:
+  bedwars-data:
+  skywars-data:
+  kitpvp-data:
+  racing-data:
+  anarchy-data:

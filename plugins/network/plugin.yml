@@ -1,0 +1,22 @@
+name: Network
+version: 1.0.0
+main: local.network.NetworkPlugin
+api-version: '1.17'
+description: Lobby game menu, lobby and limbo protection, and /lobby for servers behind the Velocity proxy in network/.
+commands:
+  lobby:
+    description: Go back to the lobby
+    aliases: [hub]
+  menu:
+    description: Open the game menu
+    aliases: [games, play]
+  lobbyall:
+    description: Send every player on this server to the lobby (used before a game server is switched off)
+    permission: network.admin
+permissions:
+  network.build:
+    description: Build, break and drop items in the lobby
+    default: op
+  network.admin:
+    description: Use /lobbyall
+    default: op

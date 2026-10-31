@@ -24,6 +24,7 @@ RUN JAVA_VERSION="$JAVA_VERSION" bash fetch-paper.sh "$MC_VERSION" "$PAPER_BUILD
 
 # Compile bundled plugins against the exact Paper API shipped inside the downloaded server.
 COPY plugins/username-rules/ plugins/username-rules/
+COPY plugins/network/ plugins/network/
 # Paperclip can exit 0 after a failed download, so verify the patched server actually exists and retry.
 RUN mkdir patched && cd patched \
  && for i in 1 2 3; do \
@@ -33,11 +34,14 @@ RUN mkdir patched && cd patched \
     done \
  && ls versions/*/*.jar cache/patched_*.jar 2>/dev/null | grep -q . \
  && cp="$(find "$PWD" -name '*.jar' | tr '\n' ':')" \
- && cd /build/plugins/username-rules \
- && javac --release "$JAVA_VERSION" -cp "$cp" -d classes src/*.java \
- && cp plugin.yml classes/ \
  && mkdir -p /build/out/plugins \
- && jar --create --file /build/out/plugins/UsernameRules.jar -C classes .
+ && for p in username-rules:UsernameRules network:Network; do \
+      cd "/build/plugins/${p%%:*}" \
+      && javac --release "$JAVA_VERSION" -cp "$cp" -d classes src/*.java \
+      && cp plugin.yml classes/ \
+      && jar --create --file "/build/out/plugins/${p##*:}.jar" -C classes . \
+      || exit 1; \
+    done
 
 FROM eclipse-temurin:${JAVA_VERSION}-jre
 RUN apt-get update \

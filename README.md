@@ -184,6 +184,7 @@ All commands: [Operations](docs/operations.md).
 | <img src="docs/assets/icons/backups.svg" width="20" height="20" alt=""> | [Backups and restore](docs/backups.md) | How backups stay consistent and restores stay safe |
 | <img src="docs/assets/icons/reliability.svg" width="20" height="20" alt=""> | [Reliability](docs/reliability.md) | Health checks, watchdog, shutdown, memory, validation |
 | <img src="docs/assets/icons/players.svg" width="20" height="20" alt=""> | [Online and offline mode](docs/offline-mode.md) | Accountless players, username rules, player data |
+| <img src="docs/assets/icons/architecture.svg" width="20" height="20" alt=""> | [Lobby network](docs/network.md) | A lobby with a game menu and game servers you switch on and off |
 | <img src="docs/assets/icons/deployment.svg" width="20" height="20" alt=""> | [Deployment](docs/deployment.md) | Linux servers, macOS, firewalls, off-site backups |
 | <img src="docs/assets/icons/edge-cases.svg" width="20" height="20" alt=""> | [Edge cases](docs/edge-cases.md) | Unusual situations and how they're handled |
 | <img src="docs/assets/icons/troubleshooting.svg" width="20" height="20" alt=""> | [Troubleshooting](docs/troubleshooting.md) | Symptoms and fixes |
@@ -200,7 +201,8 @@ All commands: [Operations](docs/operations.md).
 Dockerfile, compose.yaml, Makefile, .env.example
 scripts/     startup, backup, restore, and helper scripts
 tools/       dependency-free Java tools (RCON, versions, plugins, player migration)
-plugins/     plugins.txt and the built-in username-rules plugin
+plugins/     plugins.txt and the built-in plugins (username rules, network menu)
+network/     optional lobby network: Velocity proxy, lobby, and switchable game servers
 docs/        documentation
 ```
 
@@ -211,6 +213,9 @@ Run the one-line `docker run` command in [Quick start](#quick-start), or use the
 
 **Does it work on a Raspberry Pi, Apple Silicon, or Windows?**
 Yes. The image is built for `linux/amd64` and `linux/arm64`, so it runs on Raspberry Pi 4/5, ARM cloud servers, Apple Silicon Macs, and Windows through Docker Desktop. See [Deployment](docs/deployment.md).
+
+**Can I run a lobby with several game modes, like big public servers?**
+Yes. [`network/`](network) runs a Velocity proxy, a lobby with a game menu, and separate Survival, BedWars, SkyWars, KitPvP, racing, and Anarchy servers that you switch on and off. Cracked and premium players are both supported. See [Lobby network](docs/network.md).
 
 **Can I use plugins like EssentialsX, LuckPerms, or WorldEdit?**
 Yes, any Paper, Spigot, or Bukkit plugin. List them in `plugins.txt` and the plugin manager installs the newest version that works with your Minecraft and Java version, plus required dependencies. See [Plugins](docs/plugins.md).

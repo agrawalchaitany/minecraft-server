@@ -29,7 +29,17 @@ esac
 
 # Validate settings up front: a typo here would otherwise become a crash loop or a silently disabled feature.
 MEMORY="${MEMORY:-2G}"
-[[ "$MEMORY" =~ ^[0-9]+[MmGg]$ ]] || fail "MEMORY must look like 2G or 1536M (got '$MEMORY')"
+# MEMORY=auto sizes the heap to the container limit, leaving room for the JVM's own memory.
+if [ "$MEMORY" = "auto" ]; then
+  limit="$(cat /sys/fs/cgroup/memory.max 2>/dev/null || echo max)"
+  [[ "$limit" =~ ^[0-9]+$ ]] || fail "MEMORY=auto needs a container memory limit (mem_limit); set MEMORY to a size like 2G instead"
+  limit=$((limit / 1048576))
+  # Paper needs roughly 500-650M outside the heap (metaspace, threads, network buffers).
+  reserve=$((limit / 4)); [ "$reserve" -lt 640 ] && reserve=640
+  MEMORY="$((limit - reserve))M"
+  [ "${MEMORY%M}" -ge 384 ] || fail "the container limit of ${limit}M is too small for a server; give it at least 1G"
+fi
+[[ "$MEMORY" =~ ^[0-9]+[MmGg]$ ]] || fail "MEMORY must look like 2G, 1536M or auto (got '$MEMORY')"
 for var in WATCHDOG_INTERVAL WATCHDOG_FAILURES; do
   [[ "${!var:-1}" =~ ^[0-9]+$ ]] || fail "$var must be a whole number (got '${!var}')"
 done
@@ -72,6 +82,11 @@ set_from_env SEED level-seed
 set_from_env PVP pvp
 set_from_env WHITELIST white-list
 set_from_env WHITELIST enforce-whitelist
+set_from_env LEVEL_TYPE level-type
+set_from_env GENERATOR_SETTINGS generator-settings
+set_from_env GENERATE_STRUCTURES generate-structures
+set_from_env ALLOW_NETHER allow-nether
+set_from_env SPAWN_PROTECTION spawn-protection
 
 # Memory: heap is fixed (Xms = Xmx) so the JVM never has to grow/shrink mid-game.
 mem_mb=${MEMORY%[MmGg]}
@@ -109,6 +124,48 @@ jvm=(
 # shellcheck source=/dev/null
 . /opt/minecraft/paper-version.env
 
+# Behind the Velocity proxy (network/): only the proxy may log players in, proven by the shared secret.
+# The proxy authenticates players, so this server runs in offline mode and trusts the forwarded identity.
+configure_proxy() {
+  [[ "$PROXY_SECRET" =~ ^[A-Za-z0-9_-]{16,}$ ]] \
+    || fail "PROXY_SECRET must be at least 16 letters, numbers, - or _ (try: openssl rand -hex 24)"
+  set_prop online-mode false
+  set_prop enforce-secure-profile false
+  set_prop prevent-proxy-connections false
+
+  local file parent
+  if [ "$(printf '%s\n%s\n' 1.19 "$PAPER_VERSION" | sort -V | head -n1)" = "1.19" ]; then
+    file=config/paper-global.yml parent=proxies.velocity
+  else
+    file=paper.yml parent=settings.velocity-support
+  fi
+  if [ ! -s "$file" ]; then
+    # First start: Paper fills in every other setting around these on its own.
+    mkdir -p "$(dirname "$file")"
+    local a="${parent%%.*}" b="${parent#*.}"
+    printf '%s:\n  %s:\n    enabled: true\n    online-mode: false\n    secret: '"'"'%s'"'"'\n' "$a" "$b" "$PROXY_SECRET" > "$file"
+  else
+    SET="$parent.enabled=true
+$parent.online-mode=false
+$parent.secret='$PROXY_SECRET'" awk '
+      BEGIN { n = split(ENVIRON["SET"], kv, "\n"); for (i = 1; i <= n; i++) { eq = index(kv[i], "="); want[substr(kv[i], 1, eq - 1)] = substr(kv[i], eq + 1) } }
+      /^ *[A-Za-z0-9_.-]+:( |$)/ {
+        indent = match($0, /[^ ]/) - 1
+        key = substr($0, indent + 1); sub(/:.*/, "", key)
+        while (depth > 0 && ind[depth] >= indent) depth--
+        ind[++depth] = indent; name[depth] = key
+        path = name[1]; for (i = 2; i <= depth; i++) path = path "." name[i]
+        if (path in want) { print substr($0, 1, indent) key ": " want[path]; found++; next }
+      }
+      { print }
+      END { if (found != n) exit 3 }
+    ' "$file" > "$file.tmp" || { rm -f "$file.tmp"; fail "could not find the Velocity settings ($parent) in $file; delete $file to have it recreated"; }
+    mv "$file.tmp" "$file"
+  fi
+  log "Behind the Velocity proxy: modern forwarding enabled in $file"
+}
+if [ -n "${PROXY_SECRET:-}" ]; then configure_proxy; fi
+
 # Worlds can be upgraded but not safely downgraded: back up before upgrades, refuse downgrades.
 check_world_version() {
   local level recorded newest
@@ -136,6 +193,8 @@ check_world_version
 # Online and offline mode give players different UUIDs; when the mode changes, move their data across.
 migrate_players() {
   [ "${MIGRATE_PLAYER_DATA:-true}" = "true" ] || return 0
+  # Behind the proxy, player ids come from the proxy's login plugin; never rewrite them here.
+  [ -z "${PROXY_SECRET:-}" ] || return 0
   local mode=online state=.player-uuid-mode rc=0
   grep -qx 'online-mode=false' server.properties && mode=offline
   [ -f "$state" ] && [ "$(cat "$state")" = "$mode" ] && return 0
@@ -157,10 +216,16 @@ migrate_players() {
 migrate_players
 
 mkdir -p plugins
-if [ "${ENFORCE_USERNAME_RULES:-true}" = "true" ]; then
+# Behind the proxy, usernames are checked by the proxy's login plugin instead.
+if [ "${ENFORCE_USERNAME_RULES:-true}" = "true" ] && [ -z "${PROXY_SECRET:-}" ]; then
   cp /opt/minecraft/plugins/UsernameRules.jar plugins/
 else
   rm -f plugins/UsernameRules.jar
+fi
+if [ -n "${NETWORK_ROLE:-}" ]; then
+  cp /opt/minecraft/plugins/Network.jar plugins/
+else
+  rm -f plugins/Network.jar
 fi
 
 # Install/update plugins from plugins.txt; never block startup on a plugin download problem.

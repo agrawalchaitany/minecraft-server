@@ -1,0 +1,7 @@
+# Plugins for this server, installed by the plugin manager (see docs/plugins.md). One per line:
+#   <source: modrinth|hangar>  <project from the plugin page URL>  <latest|exact version>
+# After editing: make update-plugins S=limbo
+#
+# ViaVersion + ViaBackwards let players on other Minecraft versions join this server.
+modrinth  viaversion     latest
+modrinth  viabackwards   latest

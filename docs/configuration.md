@@ -41,7 +41,7 @@ Invalid values are rejected at startup with a message naming the setting, so a t
 
 | Variable | Default | Description |
 |---|---|---|
-| `MEMORY` | `2G` | Java heap size, such as `4G` or `1536M`. It is reserved at startup (`-Xms` = `-Xmx`). |
+| `MEMORY` | `2G` | Java heap size, such as `4G` or `1536M`. It is reserved at startup (`-Xms` = `-Xmx`). `auto` sizes it to the container's memory limit, leaving at least 640M for the JVM itself. |
 | `CONTAINER_MEMORY` | `3G` | Hard memory limit for the container. Must be at least `MEMORY` + 512M; `MEMORY` + 1G is recommended. The server refuses to start if the heap doesn't fit. |
 | `JVM_OPTS` | *(empty)* | Extra JVM flags, added after the built-in ones. |
 
@@ -72,6 +72,20 @@ These are written to `server.properties` on every start. Leave a value **empty**
 | `PVP` | `true` | `pvp` |
 | `WHITELIST` | `false` | `white-list` and `enforce-whitelist` |
 | `MIGRATE_PLAYER_DATA` | `true` | Not a property. Keep player inventories when `ONLINE_MODE` changes. |
+| `LEVEL_TYPE` | *(empty)* | `level-type`, e.g. `minecraft:flat`. Only affects newly generated worlds. |
+| `GENERATOR_SETTINGS` | *(empty)* | `generator-settings`: JSON for the world type, e.g. the layers of a flat world. Only affects new worlds. |
+| `GENERATE_STRUCTURES` | *(empty)* | `generate-structures` |
+| `ALLOW_NETHER` | *(empty)* | `allow-nether` |
+| `SPAWN_PROTECTION` | *(empty)* | `spawn-protection` (radius in blocks; `0` turns it off) |
+
+### Behind a proxy
+
+Used by the [lobby network](network.md); leave them unset for a single server.
+
+| Variable | Description |
+|---|---|
+| `PROXY_SECRET` | Turns on Velocity modern forwarding with this secret. The server then runs in offline mode, accepts only logins forwarded by the proxy, and skips `ENFORCE_USERNAME_RULES` and `MIGRATE_PLAYER_DATA` (the proxy's login plugin handles both). |
+| `NETWORK_ROLE` | `lobby`, `game`, or `limbo`. Installs the built-in `Network` plugin in that role. |
 
 The server always sets these, whatever is in `server.properties`: `server-port=25565`, `server-ip=` (listen on all interfaces), `enable-rcon=true`, `rcon.port`, and `rcon.password`.
 

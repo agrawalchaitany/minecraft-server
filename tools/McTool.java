@@ -22,6 +22,7 @@ public class McTool {
                 case "versions" -> System.exit(VersionResolver.list());
                 case "plugins" -> System.exit(PluginManager.run(java.util.Arrays.copyOfRange(args, 1, args.length)));
                 case "migrate-players" -> System.exit(PlayerMigrator.run(java.util.Arrays.copyOfRange(args, 1, args.length)));
+                case "games" -> games(arg(args, 1, "/config/network/games.yml"));
                 default -> usage();
             }
         } catch (Exception e) {
@@ -33,6 +34,19 @@ public class McTool {
     private static void usage() {
         System.err.println("usage: McTool ping [host] [port] | McTool rcon <host> <port> <password> [command...]");
         System.exit(2);
+    }
+
+    /** Prints "<id> <host:port>" for each game in network/games.yml; the id is also the proxy's server name. */
+    private static void games(String file) throws IOException {
+        Object games = Yaml.parse(java.nio.file.Files.readString(java.nio.file.Path.of(file))).get("games");
+        if (Json.obj(games) == null) throw new IOException(file + " has no 'games:' section");
+        for (var e : Json.obj(games).entrySet()) {
+            String id = e.getKey();
+            if (!id.matches("[a-z0-9][a-z0-9_-]*")) throw new IOException(file + ": game id '" + id + "' must be lowercase letters, numbers, - or _");
+            if (id.equals("lobby") || id.equals("limbo")) throw new IOException(file + ": '" + id + "' is reserved; pick another game id");
+            String address = Json.str(Json.at(e.getValue(), "address"));
+            System.out.println(id + " " + (address == null ? id + ":25565" : address));
+        }
     }
 
     private static String arg(String[] a, int i, String def) { return a.length > i ? a[i] : def; }

@@ -1,0 +1,17 @@
+# Plugins for this server, installed by the plugin manager (see docs/plugins.md). One per line:
+#   <source: modrinth|hangar>  <project from the plugin page URL>  <latest|exact version>
+# After editing: make update-plugins S=survival
+#
+# ViaVersion + ViaBackwards let players on other Minecraft versions join this server.
+modrinth  viaversion     latest
+modrinth  viabackwards   latest
+
+# Ranks and permissions (/lp editor)
+modrinth  luckperms        latest
+# Land claims with a golden shovel, so nobody can grief your base
+modrinth  griefprevention  latest
+# For admins building spawn
+modrinth  worldedit        latest
+# Not released for the newest Minecraft yet; remove the # once they are:
+# modrinth  essentialsx    latest     # /home, /spawn, /tpa, kits
+# modrinth  coreprotect    latest     # block logging and rollback

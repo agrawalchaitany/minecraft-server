@@ -14,11 +14,12 @@ import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-// Resolves plugins.txt into a compatible set of plugins (with dependencies) from Modrinth and Hangar.
+// Resolves plugins.txt into a compatible set of plugins (with dependencies) from Modrinth and Hangar,
+// for a Paper server or (platform "velocity") for the proxy in network/.
 public class PluginManager {
     static final int NOTHING_TO_DO = 3;
     private static final String UA = "self-hosted-paper-docker/1.0";
-    private static final String LOADERS = "[\"paper\",\"spigot\",\"bukkit\"]";
+    private static final List<String> PAPER_LOADERS = List.of("paper", "spigot", "bukkit", "purpur", "folia");
 
     record Entry(String source, String project, String version) {
         String spec() { return source + ":" + project.toLowerCase(Locale.ROOT); }
@@ -40,6 +41,8 @@ public class PluginManager {
 
     private final Path manifest, plugins, managed, lockFile, pending;
     private final String mc;
+    /** Velocity plugins do not depend on a Minecraft version, so the proxy skips that filter. */
+    private final boolean velocity;
     private final int serverJava = Runtime.version().feature();
     private final HttpClient http = HttpClient.newBuilder()
         .connectTimeout(Duration.ofSeconds(15)).followRedirects(HttpClient.Redirect.NORMAL).build();
@@ -54,7 +57,8 @@ public class PluginManager {
     private final Map<String, PluginInfo> infoOf = new HashMap<>();
     private final Map<String, String> originOf = new HashMap<>();
 
-    private PluginManager(Path manifest, Path plugins, String mc) {
+    private PluginManager(Path manifest, Path plugins, String mc, boolean velocity) {
+        this.velocity = velocity;
         this.manifest = manifest;
         this.plugins = plugins;
         this.managed = plugins.resolve(".managed");
@@ -63,13 +67,13 @@ public class PluginManager {
         this.mc = mc;
     }
 
-    /** args: <sync|update|status> <plugins.txt> <pluginsDir> <mcVersion> */
+    /** args: <sync|update|status> <plugins.txt> <pluginsDir> <mcVersion|velocityVersion> [paper|velocity] */
     static int run(String[] a) throws Exception {
-        if (a.length < 4) {
-            System.err.println("usage: McTool plugins <sync|update|status> <plugins.txt> <pluginsDir> <mcVersion>");
+        if (a.length < 4 || (a.length > 4 && !List.of("paper", "velocity").contains(a[4]))) {
+            System.err.println("usage: McTool plugins <sync|update|status> <plugins.txt> <pluginsDir> <mcVersion> [paper|velocity]");
             return 2;
         }
-        PluginManager pm = new PluginManager(Path.of(a[1]), Path.of(a[2]), a[3]);
+        PluginManager pm = new PluginManager(Path.of(a[1]), Path.of(a[2]), a[3], a.length > 4 && a[4].equals("velocity"));
         Files.createDirectories(pm.managed);
         if (a[0].equals("status")) return pm.status();
         // Only one install/update at a time (e.g. `make update-plugins` while the scheduled update runs).
@@ -99,7 +103,7 @@ public class PluginManager {
         boolean filesPresent = readLock(lockFile).values().stream().allMatch(l -> Files.exists(plugins.resolve(l.file())));
         if (stamp.equals(readStamp(lockFile)) && filesPresent) return 0;
 
-        log("plugins.txt, Minecraft or Java changed: resolving plugins for Minecraft " + mc + " on Java " + serverJava);
+        log("plugins.txt, " + platformName() + " or Java changed: resolving plugins for " + platformName() + " " + mc + " on Java " + serverJava);
         if (stage(true) == 0) applyPending();
         if (!failures) writeLock(lockFile, readLock(lockFile), stamp);
         return 0;
@@ -135,7 +139,7 @@ public class PluginManager {
         if (failures) {
             for (Locked l : lock.values()) {
                 Path jar = plugins.resolve(l.file());
-                if (!next.containsKey(l.key()) && Files.exists(jar) && unsuitable(pluginInfo(jar), jar) == null) next.put(l.key(), l);
+                if (!next.containsKey(l.key()) && Files.exists(jar) && unsuitable(info(jar), jar) == null) next.put(l.key(), l);
             }
         }
 
@@ -181,7 +185,7 @@ public class PluginManager {
                 continue;
             }
             if (picks.containsKey(r.key())) continue;
-            if (!r.supportsServer()) problem(r.name() + " " + r.version() + " does not list support for Minecraft " + mc + "; installing it anyway because it was pinned");
+            if (!r.supportsServer()) problem(r.name() + " " + r.version() + " does not list support for " + platformName() + " " + mc + "; installing it anyway because it was pinned");
             picks.put(r.key(), r);
             originOf.put(r.key(), w.origin());
             for (Dep d : r.deps()) {
@@ -249,7 +253,7 @@ public class PluginManager {
     /** Downloads and checks one version; registers it and returns null if suitable, otherwise returns why not. */
     private String tryRelease(Release r) throws Exception {
         Path jar = obtain(r);
-        PluginInfo pi = pluginInfo(jar);
+        PluginInfo pi = info(jar);
         String why = unsuitable(pi, jar);
         if (why == null) {
             jarOf.put(r.key(), jar);
@@ -261,8 +265,8 @@ public class PluginManager {
     }
 
     private String unsuitable(PluginInfo pi, Path jar) {
-        if (pi == null) return "is not a valid Paper/Bukkit plugin";
-        if (pi.apiVersion() != null && VersionResolver.compare(pi.apiVersion(), mc) > 0) {
+        if (pi == null) return velocity ? "is not a valid Velocity plugin" : "is not a valid Paper/Bukkit plugin";
+        if (!velocity && pi.apiVersion() != null && VersionResolver.compare(pi.apiVersion(), mc) > 0) {
             return "needs Minecraft " + pi.apiVersion() + " or newer";
         }
         int java = classJava(jar, pi.main());
@@ -319,13 +323,15 @@ public class PluginManager {
         if (w.versionId() != null) return List.of(modrinthRelease(getJson("https://api.modrinth.com/v2/version/" + enc(w.versionId()))));
         if (!w.latest()) return List.of(modrinthRelease(getJson("https://api.modrinth.com/v2/project/" + p + "/version/" + enc(w.version()))));
 
-        List<Object> all = Json.arr(getJson("https://api.modrinth.com/v2/project/" + p + "/version?loaders=" + enc(LOADERS)
-            + "&game_versions=" + enc("[\"" + mc + "\"]")));
+        String query = velocity ? "?loaders=" + enc("[\"velocity\"]")
+            : "?loaders=" + enc("[\"paper\",\"spigot\",\"bukkit\"]") + "&game_versions=" + enc("[\"" + mc + "\"]");
+        List<Object> all = Json.arr(getJson("https://api.modrinth.com/v2/project/" + p + "/version" + query));
         List<Object> stable = all.stream().filter(v -> "release".equals(Json.str(Json.at(v, "version_type")))).toList();
         if (stable.isEmpty()) {
+            String what = velocity ? "for Velocity" : "supports Minecraft " + mc;
             throw new IOException(all.isEmpty()
-                ? "no version supports Minecraft " + mc + " yet"
-                : "no stable version supports Minecraft " + mc + " (only beta/alpha); pin one in plugins.txt to use it");
+                ? "no version " + what + (velocity ? "" : " yet")
+                : "no stable version " + what + " (only beta/alpha); pin one in plugins.txt to use it");
         }
         List<Release> out = new ArrayList<>();
         for (Object v : stable) out.add(modrinthRelease(v));
@@ -342,8 +348,9 @@ public class PluginManager {
             modrinthNames.put(projectId, Objects.requireNonNullElse(Json.str(Json.at(proj, "title")), projectId));
         }
         List<Object> loaders = Json.arr(Json.at(v, "loaders"));
-        if (loaders.stream().noneMatch(l -> List.of("paper", "spigot", "bukkit", "purpur", "folia").contains(Json.str(l)))) {
-            throw new IOException("version " + Json.str(Json.at(v, "version_number")) + " is not a Paper/Spigot/Bukkit plugin");
+        if (velocity ? !loaders.contains("velocity") : loaders.stream().noneMatch(l -> PAPER_LOADERS.contains(Json.str(l)))) {
+            throw new IOException("version " + Json.str(Json.at(v, "version_number")) + " is not a "
+                + (velocity ? "Velocity" : "Paper/Spigot/Bukkit") + " plugin");
         }
         List<Object> files = Json.arr(Json.at(v, "files"));
         Object file = files.stream().filter(f -> Boolean.TRUE.equals(Json.at(f, "primary"))).findFirst()
@@ -359,7 +366,7 @@ public class PluginManager {
             if ("required".equals(type)) deps.add(new Dep("modrinth", proj, ver, false));
             else if ("incompatible".equals(type)) deps.add(new Dep("modrinth", proj, null, true));
         }
-        boolean supports = Json.arr(Json.at(v, "game_versions")).contains(mc);
+        boolean supports = velocity || Json.arr(Json.at(v, "game_versions")).contains(mc);
         return new Release("modrinth:" + projectId, modrinthNames.get(projectId), Json.str(Json.at(v, "version_number")),
             Json.str(Json.at(file, "url")), Json.str(Json.at(file, "filename")), "SHA-512",
             Json.str(Json.at(file, "hashes", "sha512")), supports, deps);
@@ -374,9 +381,9 @@ public class PluginManager {
             if (Json.at(v, "name") == null) throw new IOException("version " + w.version() + " not found on Hangar");
             return List.of(hangarRelease(v, w));
         }
-        List<Object> result = Json.arr(Json.at(getJson(base + "?limit=25&platform=PAPER&channel=Release&platformVersion="
-            + enc(mc)), "result"));
-        if (result.isEmpty()) throw new IOException("no stable release supports Minecraft " + mc + " yet");
+        List<Object> result = Json.arr(Json.at(getJson(base + "?limit=25&platform=" + hangarPlatform() + "&channel=Release"
+            + (velocity ? "" : "&platformVersion=" + enc(mc))), "result"));
+        if (result.isEmpty()) throw new IOException(velocity ? "no stable Velocity release" : "no stable release supports Minecraft " + mc + " yet");
         List<Release> out = new ArrayList<>();
         for (Object v : result) {
             try {
@@ -390,18 +397,18 @@ public class PluginManager {
     }
 
     private Release hangarRelease(Object v, Want w) throws Exception {
-        Object dl = Json.at(v, "downloads", "PAPER");
-        if (dl == null) throw new IOException("version has no Paper download");
+        Object dl = Json.at(v, "downloads", hangarPlatform());
+        if (dl == null) throw new IOException("version has no " + (velocity ? "Velocity" : "Paper") + " download");
         String url = Json.str(Json.at(dl, "downloadUrl"));
         if (url == null) throw new IOException("only published as an external link, so it cannot be verified; download it by hand");
 
         // Dependencies hosted outside Hangar have no projectId; they are found by plugin name in checkSet().
         List<Dep> deps = new ArrayList<>();
-        for (Object d : Json.arr(Json.at(v, "pluginDependencies", "PAPER"))) {
+        for (Object d : Json.arr(Json.at(v, "pluginDependencies", hangarPlatform()))) {
             Object pid = Json.at(d, "projectId");
             if (Boolean.TRUE.equals(Json.at(d, "required")) && pid != null) deps.add(new Dep("hangar", numberString(pid), null, false));
         }
-        boolean supports = Json.arr(Json.at(v, "platformDependencies", "PAPER")).contains(mc);
+        boolean supports = velocity || Json.arr(Json.at(v, "platformDependencies", "PAPER")).contains(mc);
         String projectId = numberString(Json.at(v, "projectId"));
         if (!hangarNames.containsKey(projectId)) {
             Object proj = getJson("https://hangar.papermc.io/api/v1/projects/" + projectId);
@@ -419,7 +426,7 @@ public class PluginManager {
         Map<String, String> manualNames = new HashMap<>();
         for (String jar : jars(plugins)) {
             if (managedFiles.contains(jar)) continue;
-            PluginInfo pi = pluginInfo(plugins.resolve(jar));
+            PluginInfo pi = info(plugins.resolve(jar));
             if (pi == null) continue;
             manualNames.put(pi.name().toLowerCase(Locale.ROOT), jar);
             pi.provides().forEach(p -> manualNames.put(p.toLowerCase(Locale.ROOT), jar));
@@ -484,6 +491,31 @@ public class PluginManager {
         return false;
     }
 
+    private String platformName() { return velocity ? "Velocity" : "Minecraft"; }
+
+    private String hangarPlatform() { return velocity ? "VELOCITY" : "PAPER"; }
+
+    private PluginInfo info(Path jar) { return velocity ? velocityInfo(jar) : pluginInfo(jar); }
+
+    /** Reads velocity-plugin.json; Velocity identifies plugins (and dependencies) by their id. */
+    static PluginInfo velocityInfo(Path jar) {
+        try (ZipFile zip = new ZipFile(jar.toFile())) {
+            ZipEntry entry = zip.getEntry("velocity-plugin.json");
+            if (entry == null) return null;
+            Object j = Json.parse(new String(zip.getInputStream(entry).readAllBytes(), StandardCharsets.UTF_8));
+            String id = Json.str(Json.at(j, "id"));
+            if (id == null) return null;
+            List<String> depends = new ArrayList<>();
+            for (Object d : Json.arr(Json.at(j, "dependencies"))) {
+                String dep = Json.str(Json.at(d, "id"));
+                if (dep != null && !Boolean.TRUE.equals(Json.at(d, "optional"))) depends.add(dep);
+            }
+            return new PluginInfo(id, Json.str(Json.at(j, "main")), null, depends, List.of());
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     static PluginInfo pluginInfo(Path jar) {
         try (ZipFile zip = new ZipFile(jar.toFile())) {
             ZipEntry paper = zip.getEntry("paper-plugin.yml"), bukkit = zip.getEntry("plugin.yml");
@@ -531,7 +563,7 @@ public class PluginManager {
 
     private int status() throws IOException {
         Map<String, Locked> lock = readLock(lockFile);
-        System.out.println("Minecraft " + mc + " on Java " + serverJava + " - plugins managed by plugins.txt:");
+        System.out.println(platformName() + " " + mc + " on Java " + serverJava + " - plugins managed by plugins.txt:");
         if (lock.isEmpty()) System.out.println("  (none)");
         lock.values().forEach(l -> System.out.printf("  %-24s %-22s %s%n", l.name(), l.version(), l.origin()));
         Set<String> managedFiles = new HashSet<>();

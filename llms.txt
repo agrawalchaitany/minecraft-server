@@ -23,6 +23,7 @@ What it supports: Paper, Spigot, and Bukkit plugins, online and offline (cracked
 - [Backups and restore](https://github.com/agrawalchaitany/minecraft-server/blob/main/docs/backups.md): consistent online backups and safe restores
 - [Reliability](https://github.com/agrawalchaitany/minecraft-server/blob/main/docs/reliability.md): health checks, watchdog, graceful shutdown, memory, and config validation
 - [Online and offline mode](https://github.com/agrawalchaitany/minecraft-server/blob/main/docs/offline-mode.md): accountless players, username rules, and player data migration
+- [Lobby network](https://github.com/agrawalchaitany/minecraft-server/blob/main/docs/network.md): Velocity proxy, lobby game menu, switchable Survival/BedWars/SkyWars/KitPvP/racing/Anarchy servers, cracked and premium logins
 - [Deployment](https://github.com/agrawalchaitany/minecraft-server/blob/main/docs/deployment.md): Linux servers, macOS, firewalls, and off-site backups
 - [Troubleshooting](https://github.com/agrawalchaitany/minecraft-server/blob/main/docs/troubleshooting.md): symptoms and fixes
 

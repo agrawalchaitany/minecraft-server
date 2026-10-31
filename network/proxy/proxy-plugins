@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Usage: plugins sync|update|status   (proxy plugins, from network/proxy/plugins.txt)
+# shellcheck source=/dev/null
+. /opt/velocity/velocity-version.env
+exec java -XX:TieredStopAtLevel=1 -Xmx128m -jar /opt/velocity/mctool.jar plugins "${1:?usage: plugins sync|update|status}" \
+  "${PLUGINS_MANIFEST:-/config/proxy/plugins.txt}" /data/plugins "$VELOCITY_VERSION" velocity
