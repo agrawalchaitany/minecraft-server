@@ -79,21 +79,21 @@ make status        # wait for (healthy), then connect to localhost:25565
 <tr>
 <td width="33%" valign="top">
 
-<img src="../assets/icons/versions.svg" width="24" height="24" alt=""> **कोई भी संस्करण**
+<img src="../assets/icons/versions.svg" width="32" height="32" alt=""><br>**कोई भी संस्करण**
 
 Minecraft 1.17 से नवीनतम तक। सही Java (17, 21 या 25) अपने आप चुना जाता है। अपग्रेड से पहले दुनिया का बैकअप लिया जाता है; जो डाउनग्रेड दुनिया को खराब कर सकते हैं, उन्हें मना कर दिया जाता है। [और जानें](../hi/minecraft-versions.md)
 
 </td>
 <td width="33%" valign="top">
 
-<img src="../assets/icons/reliability.svg" width="24" height="24" alt=""> **खुद ठीक होना**
+<img src="../assets/icons/reliability.svg" width="32" height="32" alt=""><br>**खुद ठीक होना**
 
 क्रैश और मेमोरी खत्म होने के बाद अपने आप फिर से शुरू। एक health check, और एक watchdog जो अटके हुए सर्वर को फिर से शुरू करता है। [और जानें](../hi/reliability.md)
 
 </td>
 <td width="33%" valign="top">
 
-<img src="../assets/icons/shutdown.svg" width="24" height="24" alt=""> **सुरक्षित बंद होना**
+<img src="../assets/icons/shutdown.svg" width="32" height="32" alt=""><br>**सुरक्षित बंद होना**
 
 हर बार रोकने से पहले सर्वर कंसोल के ज़रिए सभी दुनियाएँ सेव की जाती हैं। [और जानें](../hi/reliability.md#सुरक्षित-बंद-होना)
 
@@ -102,21 +102,21 @@ Minecraft 1.17 से नवीनतम तक। सही Java (17, 21 या
 <tr>
 <td width="33%" valign="top">
 
-<img src="../assets/icons/backups.svg" width="24" height="24" alt=""> **बैकअप**
+<img src="../assets/icons/backups.svg" width="32" height="32" alt=""><br>**बैकअप**
 
 तय समय पर, खिलाड़ियों के ऑनलाइन रहते हुए भी सुसंगत; लॉक किए जाते हैं ताकि दो कभी एक साथ न चलें; जाँचे जाते हैं, डिस्क स्पेस देखा जाता है और पुराने हटाए जाते हैं। अपग्रेड, माइग्रेशन, प्लगइन अपडेट और रिस्टोर से पहले अपने आप लिए जाते हैं। [और जानें](../hi/backups.md)
 
 </td>
 <td width="33%" valign="top">
 
-<img src="../assets/icons/restore.svg" width="24" height="24" alt=""> **सुरक्षित रिस्टोर**
+<img src="../assets/icons/restore.svg" width="32" height="32" alt=""><br>**सुरक्षित रिस्टोर**
 
 एक कमांड। पहले फ़ाइल जाँचता है, सुरक्षा बैकअप लेता है, और एक staging फ़ोल्डर में निकालता है ताकि कोई गड़बड़ी मौजूदा दुनिया को न मिटा सके। [और जानें](../hi/backups.md#रिस्टोर-करना)
 
 </td>
 <td width="33%" valign="top">
 
-<img src="../assets/icons/plugins.svg" width="24" height="24" alt=""> **प्लगइन मैनेजर**
+<img src="../assets/icons/plugins.svg" width="32" height="32" alt=""><br>**प्लगइन मैनेजर**
 
 `plugins.txt` में प्लगइन्स लिखें। हर एक के लिए, jar की खुद जाँच करके वह नवीनतम संस्करण चुना जाता है जो आपके Minecraft और Java पर सच में चलता है। ज़रूरी dependencies इंस्टॉल की जाती हैं। टकराव और डुप्लिकेट पकड़े जाते हैं। ज़रूरत पर या रोज़ अपडेट। [और जानें](../hi/plugins.md)
 
@@ -125,21 +125,21 @@ Minecraft 1.17 से नवीनतम तक। सही Java (17, 21 या
 <tr>
 <td width="33%" valign="top">
 
-<img src="../assets/icons/players.svg" width="24" height="24" alt=""> **ऑफ़लाइन मोड**
+<img src="../assets/icons/players.svg" width="32" height="32" alt=""><br>**ऑफ़लाइन मोड**
 
 बिना आधिकारिक अकाउंट वाले खिलाड़ियों को जुड़ने दें, Mojang के यूज़रनेम नियम लागू रहते हैं और मोड बदलने पर खिलाड़ियों का सामान सुरक्षित रहता है। [और जानें](../hi/offline-mode.md)
 
 </td>
 <td width="33%" valign="top">
 
-<img src="../assets/icons/guard.svg" width="24" height="24" alt=""> **सुरक्षा जाँचें**
+<img src="../assets/icons/guard.svg" width="32" height="32" alt=""><br>**सुरक्षा जाँचें**
 
 शुरू होते समय हर सेटिंग साफ़ संदेश के साथ जाँची जाती है। टाइपो से क्रैश-लूप नहीं होते। [और जानें](../hi/reliability.md#सेटिंग्स-की-जाँच)
 
 </td>
 <td width="33%" valign="top">
 
-<img src="../assets/icons/security.svg" width="24" height="24" alt=""> **न्यूनतम अधिकार**
+<img src="../assets/icons/security.svg" width="32" height="32" alt=""><br>**न्यूनतम अधिकार**
 
 non-root यूज़र के रूप में चलता है। रिमोट कंसोल Docker के बाहर कभी उजागर नहीं होता। लॉग rotate किए जाते हैं।
 

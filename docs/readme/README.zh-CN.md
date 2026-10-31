@@ -79,21 +79,21 @@ make status        # wait for (healthy), then connect to localhost:25565
 <tr>
 <td width="33%" valign="top">
 
-<img src="../assets/icons/versions.svg" width="24" height="24" alt=""> **任意版本**
+<img src="../assets/icons/versions.svg" width="32" height="32" alt=""><br>**任意版本**
 
 支持 Minecraft 1.17 至最新版本。自动选择匹配的 Java（17、21 或 25）。升级前先备份世界；会损坏世界的降级会被拒绝。[详情](../zh-CN/minecraft-versions.md)
 
 </td>
 <td width="33%" valign="top">
 
-<img src="../assets/icons/reliability.svg" width="24" height="24" alt=""> **自我修复**
+<img src="../assets/icons/reliability.svg" width="32" height="32" alt=""><br>**自我修复**
 
 崩溃和内存不足后自动重启。提供健康检查，以及会重启卡死服务器的看门狗（watchdog）。[详情](../zh-CN/reliability.md)
 
 </td>
 <td width="33%" valign="top">
 
-<img src="../assets/icons/shutdown.svg" width="24" height="24" alt=""> **安全关闭**
+<img src="../assets/icons/shutdown.svg" width="32" height="32" alt=""><br>**安全关闭**
 
 每次停止前都会先通过服务器控制台保存所有世界。[详情](../zh-CN/reliability.md#安全关闭)
 
@@ -102,21 +102,21 @@ make status        # wait for (healthy), then connect to localhost:25565
 <tr>
 <td width="33%" valign="top">
 
-<img src="../assets/icons/backups.svg" width="24" height="24" alt=""> **备份**
+<img src="../assets/icons/backups.svg" width="32" height="32" alt=""><br>**备份**
 
 定时执行，即使玩家在线也保持一致；加锁保证不会重叠；经过校验、检查磁盘空间并自动轮换。在升级、迁移、插件更新和恢复之前自动备份。[详情](../zh-CN/backups.md)
 
 </td>
 <td width="33%" valign="top">
 
-<img src="../assets/icons/restore.svg" width="24" height="24" alt=""> **安全恢复**
+<img src="../assets/icons/restore.svg" width="32" height="32" alt=""><br>**安全恢复**
 
 一条命令。先检查文件，再做一次安全备份，并先解压到暂存目录，因此失败也不会丢失当前世界。[详情](../zh-CN/backups.md#恢复)
 
 </td>
 <td width="33%" valign="top">
 
-<img src="../assets/icons/plugins.svg" width="24" height="24" alt=""> **插件管理器**
+<img src="../assets/icons/plugins.svg" width="32" height="32" alt=""><br>**插件管理器**
 
 在 `plugins.txt` 中列出插件。通过检查 jar 本身，为每个插件选择在你的 Minecraft 和 Java 上真正能运行的最新版本。自动安装必需的依赖，并发现冲突和重复。可按需或每天更新。[详情](../zh-CN/plugins.md)
 
@@ -125,21 +125,21 @@ make status        # wait for (healthy), then connect to localhost:25565
 <tr>
 <td width="33%" valign="top">
 
-<img src="../assets/icons/players.svg" width="24" height="24" alt=""> **离线模式**
+<img src="../assets/icons/players.svg" width="32" height="32" alt=""><br>**离线模式**
 
 允许没有正版账号的玩家加入，同时执行 Mojang 的用户名规则，并在切换模式时保留玩家物品栏。[详情](../zh-CN/offline-mode.md)
 
 </td>
 <td width="33%" valign="top">
 
-<img src="../assets/icons/guard.svg" width="24" height="24" alt=""> **防护措施**
+<img src="../assets/icons/guard.svg" width="32" height="32" alt=""><br>**防护措施**
 
 启动时校验每一项设置并给出清晰提示。不会因为拼写错误而陷入崩溃循环。[详情](../zh-CN/reliability.md#配置校验)
 
 </td>
 <td width="33%" valign="top">
 
-<img src="../assets/icons/security.svg" width="24" height="24" alt=""> **最小权限**
+<img src="../assets/icons/security.svg" width="32" height="32" alt=""><br>**最小权限**
 
 以非 root 用户运行。远程控制台从不暴露到 Docker 之外。日志自动轮换。
 
