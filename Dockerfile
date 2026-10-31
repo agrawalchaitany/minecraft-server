@@ -55,9 +55,12 @@ COPY --chmod=755 scripts/rcon-cli          /usr/local/bin/rcon-cli
 COPY --chmod=755 scripts/mc-health         /usr/local/bin/mc-health
 COPY --chmod=755 scripts/plugins           /usr/local/bin/plugins
 
-LABEL org.opencontainers.image.source="https://github.com/agrawalchaitany/minecraft-server" \
+LABEL org.opencontainers.image.title="Minecraft Server (Paper)" \
+      org.opencontainers.image.source="https://github.com/agrawalchaitany/minecraft-server" \
+      org.opencontainers.image.url="https://github.com/agrawalchaitany/minecraft-server" \
+      org.opencontainers.image.documentation="https://github.com/agrawalchaitany/minecraft-server/tree/main/docs" \
       org.opencontainers.image.description="Self-built Paper Minecraft server: auto Java, safe backups, plugin resolver" \
-      org.opencontainers.image.licenses="NOASSERTION"
+      org.opencontainers.image.licenses="MIT"
 
 ENV HOME=/data
 WORKDIR /data
