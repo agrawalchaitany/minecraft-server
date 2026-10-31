@@ -77,71 +77,80 @@ make status        # wait for (healthy), then connect to localhost:25565
 
 <table>
 <tr>
-<td width="33%" valign="top">
+<td width="33%" valign="top" align="center">
 
-<img src="../assets/icons/versions.svg" width="32" height="32" alt=""><br>**どのバージョンでも**
+<br><img src="../assets/icons/versions.svg" width="32" height="32" alt=""><br>**どのバージョンでも**
 
 Minecraft 1.17 から最新まで。対応する Java（17・21・25）を自動で選びます。アップグレード前にワールドをバックアップし、ワールドを壊すダウングレードは拒否します。[詳細](../ja/minecraft-versions.md)
+<br>&nbsp;
 
 </td>
-<td width="33%" valign="top">
+<td width="33%" valign="top" align="center">
 
-<img src="../assets/icons/reliability.svg" width="32" height="32" alt=""><br>**自己回復**
+<br><img src="../assets/icons/reliability.svg" width="32" height="32" alt=""><br>**自己回復**
 
 クラッシュやメモリ不足のあと自動で再起動します。ヘルスチェックに加え、フリーズしたサーバーを再起動するウォッチドッグがあります。[詳細](../ja/reliability.md)
+<br>&nbsp;
 
 </td>
-<td width="33%" valign="top">
+<td width="33%" valign="top" align="center">
 
-<img src="../assets/icons/shutdown.svg" width="32" height="32" alt=""><br>**安全な停止**
+<br><img src="../assets/icons/shutdown.svg" width="32" height="32" alt=""><br>**安全な停止**
 
 停止のたびに、まずサーバーコンソール経由ですべてのワールドを保存します。[詳細](../ja/reliability.md#安全な停止)
+<br>&nbsp;
 
 </td>
 </tr>
 <tr>
-<td width="33%" valign="top">
+<td width="33%" valign="top" align="center">
 
-<img src="../assets/icons/backups.svg" width="32" height="32" alt=""><br>**バックアップ**
+<br><img src="../assets/icons/backups.svg" width="32" height="32" alt=""><br>**バックアップ**
 
 定期実行で、プレイヤーがオンラインでも一貫性を保ちます。ロックで重複実行を防ぎ、検証・ディスク容量チェック・世代管理を行います。アップグレード、移行、プラグイン更新、復元の前にも自動で取得します。[詳細](../ja/backups.md)
+<br>&nbsp;
 
 </td>
-<td width="33%" valign="top">
+<td width="33%" valign="top" align="center">
 
-<img src="../assets/icons/restore.svg" width="32" height="32" alt=""><br>**安全な復元**
+<br><img src="../assets/icons/restore.svg" width="32" height="32" alt=""><br>**安全な復元**
 
 コマンド 1 つ。まずファイルを確認し、安全のためのバックアップを取り、一時フォルダーに展開するので、失敗しても今のワールドは失われません。[詳細](../ja/backups.md#復元)
+<br>&nbsp;
 
 </td>
-<td width="33%" valign="top">
+<td width="33%" valign="top" align="center">
 
-<img src="../assets/icons/plugins.svg" width="32" height="32" alt=""><br>**プラグインマネージャー**
+<br><img src="../assets/icons/plugins.svg" width="32" height="32" alt=""><br>**プラグインマネージャー**
 
 `plugins.txt` にプラグインを書くだけ。jar 自体を調べて、あなたの Minecraft と Java で本当に動く最新版をそれぞれ選びます。必須の依存プラグインも入れ、競合や重複も見つけます。更新は手動でも毎日自動でも可能です。[詳細](../ja/plugins.md)
+<br>&nbsp;
 
 </td>
 </tr>
 <tr>
-<td width="33%" valign="top">
+<td width="33%" valign="top" align="center">
 
-<img src="../assets/icons/players.svg" width="32" height="32" alt=""><br>**オフラインモード**
+<br><img src="../assets/icons/players.svg" width="32" height="32" alt=""><br>**オフラインモード**
 
 公式アカウントのないプレイヤーも参加できます。Mojang のユーザー名ルールを適用し、モードを切り替えてもインベントリを保持します。[詳細](../ja/offline-mode.md)
+<br>&nbsp;
 
 </td>
-<td width="33%" valign="top">
+<td width="33%" valign="top" align="center">
 
-<img src="../assets/icons/guard.svg" width="32" height="32" alt=""><br>**ガードレール**
+<br><img src="../assets/icons/guard.svg" width="32" height="32" alt=""><br>**ガードレール**
 
 起動時にすべての設定をわかりやすいメッセージ付きで検証します。入力ミスでクラッシュループにはなりません。[詳細](../ja/reliability.md#設定の検証)
+<br>&nbsp;
 
 </td>
-<td width="33%" valign="top">
+<td width="33%" valign="top" align="center">
 
-<img src="../assets/icons/security.svg" width="32" height="32" alt=""><br>**最小権限**
+<br><img src="../assets/icons/security.svg" width="32" height="32" alt=""><br>**最小権限**
 
 root 以外のユーザーで動作します。リモートコンソールは Docker の外に公開されません。ログはローテーションされます。
+<br>&nbsp;
 
 </td>
 </tr>
