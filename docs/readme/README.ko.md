@@ -75,86 +75,50 @@ make status        # wait for (healthy), then connect to localhost:25565
 
 ## 기능
 
-<table>
-<tr>
-<td width="33%" valign="top" align="center">
+<img src="../assets/icons/versions.svg" width="36" height="36" align="left" hspace="10" alt="">
 
-<br><img src="../assets/icons/versions.svg" width="32" height="32" alt=""><br>**모든 버전**
-
+**모든 버전**<br>
 Minecraft 1.17부터 최신 버전까지. 맞는 Java(17, 21, 25)를 자동으로 선택합니다. 업그레이드 전에 월드를 백업하고, 월드를 손상시킬 수 있는 다운그레이드는 거부합니다. [자세히](../ko/minecraft-versions.md)
-<br>&nbsp;
 
-</td>
-<td width="33%" valign="top" align="center">
+<img src="../assets/icons/reliability.svg" width="36" height="36" align="left" hspace="10" alt="">
 
-<br><img src="../assets/icons/reliability.svg" width="32" height="32" alt=""><br>**자가 복구**
-
+**자가 복구**<br>
 크래시나 메모리 부족 후 자동으로 재시작합니다. 헬스 체크와, 멈춘 서버를 재시작하는 워치독이 있습니다. [자세히](../ko/reliability.md)
-<br>&nbsp;
 
-</td>
-<td width="33%" valign="top" align="center">
+<img src="../assets/icons/shutdown.svg" width="36" height="36" align="left" hspace="10" alt="">
 
-<br><img src="../assets/icons/shutdown.svg" width="32" height="32" alt=""><br>**안전한 종료**
-
+**안전한 종료**<br>
 멈출 때마다 먼저 서버 콘솔을 통해 모든 월드를 저장합니다. [자세히](../ko/reliability.md#안전한-종료)
-<br>&nbsp;
 
-</td>
-</tr>
-<tr>
-<td width="33%" valign="top" align="center">
+<img src="../assets/icons/backups.svg" width="36" height="36" align="left" hspace="10" alt="">
 
-<br><img src="../assets/icons/backups.svg" width="32" height="32" alt=""><br>**백업**
-
+**백업**<br>
 정해진 주기로, 플레이어가 접속 중이어도 일관성 있게 백업합니다. 잠금으로 두 백업이 겹치지 않게 하고, 검증, 디스크 공간 확인, 오래된 백업 정리를 합니다. 업그레이드, 마이그레이션, 플러그인 업데이트, 복원 전에도 자동으로 백업합니다. [자세히](../ko/backups.md)
-<br>&nbsp;
 
-</td>
-<td width="33%" valign="top" align="center">
+<img src="../assets/icons/restore.svg" width="36" height="36" align="left" hspace="10" alt="">
 
-<br><img src="../assets/icons/restore.svg" width="32" height="32" alt=""><br>**안전한 복원**
-
+**안전한 복원**<br>
 명령어 하나. 먼저 파일을 확인하고, 안전 백업을 만들고, 임시 폴더에 압축을 풀기 때문에 실패해도 현재 월드를 잃지 않습니다. [자세히](../ko/backups.md#복원하기)
-<br>&nbsp;
 
-</td>
-<td width="33%" valign="top" align="center">
+<img src="../assets/icons/plugins.svg" width="36" height="36" align="left" hspace="10" alt="">
 
-<br><img src="../assets/icons/plugins.svg" width="32" height="32" alt=""><br>**플러그인 관리자**
-
+**플러그인 관리자**<br>
 `plugins.txt`에 플러그인을 적기만 하면 됩니다. jar 자체를 검사해서, 내 Minecraft와 Java에서 실제로 동작하는 최신 버전을 플러그인마다 고릅니다. 필요한 의존 플러그인을 설치하고, 충돌과 중복을 찾아냅니다. 필요할 때 또는 매일 업데이트합니다. [자세히](../ko/plugins.md)
-<br>&nbsp;
 
-</td>
-</tr>
-<tr>
-<td width="33%" valign="top" align="center">
+<img src="../assets/icons/players.svg" width="36" height="36" align="left" hspace="10" alt="">
 
-<br><img src="../assets/icons/players.svg" width="32" height="32" alt=""><br>**오프라인 모드**
-
+**오프라인 모드**<br>
 정품 계정이 없는 플레이어도 접속할 수 있게 하면서, Mojang의 사용자 이름 규칙을 적용하고 모드를 바꿔도 인벤토리를 유지합니다. [자세히](../ko/offline-mode.md)
-<br>&nbsp;
 
-</td>
-<td width="33%" valign="top" align="center">
+<img src="../assets/icons/guard.svg" width="36" height="36" align="left" hspace="10" alt="">
 
-<br><img src="../assets/icons/guard.svg" width="32" height="32" alt=""><br>**안전장치**
-
+**안전장치**<br>
 시작할 때 모든 설정을 명확한 메시지와 함께 검증합니다. 오타 때문에 크래시 루프에 빠지지 않습니다. [자세히](../ko/reliability.md#설정-검증)
-<br>&nbsp;
 
-</td>
-<td width="33%" valign="top" align="center">
+<img src="../assets/icons/security.svg" width="36" height="36" align="left" hspace="10" alt="">
 
-<br><img src="../assets/icons/security.svg" width="32" height="32" alt=""><br>**최소 권한**
-
+**최소 권한**<br>
 root가 아닌 사용자로 실행됩니다. 원격 콘솔은 Docker 밖으로 절대 노출되지 않습니다. 로그는 순환 관리됩니다.
-<br>&nbsp;
-
-</td>
-</tr>
-</table>
 
 ## 자주 쓰는 명령어
 
