@@ -1,0 +1,33 @@
+# Minecraft Server (Paper on Docker)
+
+> A self-built, production-ready Minecraft: Java Edition server for Docker and Docker Compose. It runs any version from 1.17 to the latest on PaperMC, picks the right Java (17, 21, or 25) automatically, makes consistent scheduled backups, restores safely, resolves plugin versions that are compatible with your Minecraft and Java, and restarts itself after crashes or freezes. It is built only from official eclipse-temurin images and the official PaperMC, Mojang, Modrinth, and Hangar download services, with every jar checksum-verified.
+
+Ready-made image: `agrawalchaitany/minecraft-server` on Docker Hub and `ghcr.io/agrawalchaitany/minecraft-server` on GitHub Packages (linux/amd64 and linux/arm64).
+
+Fastest start:
+
+```
+docker run -d --name minecraft --restart unless-stopped -p 25565:25565 -e EULA=TRUE -e MEMORY=2G -v minecraft-data:/data agrawalchaitany/minecraft-server:26.3
+```
+
+What it supports: Paper, Spigot, and Bukkit plugins, online and offline (cracked/accountless) mode, RCON console, whitelists, and macOS, Linux, and Windows hosts through Docker. It does not run Fabric, Forge, or NeoForge mods, or Bedrock Edition.
+
+## Docs
+
+- [README](https://github.com/agrawalchaitany/minecraft-server/blob/main/README.md): overview, quick start, and everyday commands
+- [Getting started](https://github.com/agrawalchaitany/minecraft-server/blob/main/docs/getting-started.md): running in five minutes
+- [Configuration](https://github.com/agrawalchaitany/minecraft-server/blob/main/docs/configuration.md): every `.env` setting (EULA, MC_VERSION, MEMORY, ONLINE_MODE, BACKUP_INTERVAL, and more)
+- [Operations](https://github.com/agrawalchaitany/minecraft-server/blob/main/docs/operations.md): all `make` commands for day-to-day tasks
+- [Minecraft versions](https://github.com/agrawalchaitany/minecraft-server/blob/main/docs/minecraft-versions.md): versions, Java selection, upgrades, and downgrades
+- [Plugins](https://github.com/agrawalchaitany/minecraft-server/blob/main/docs/plugins.md): `plugins.txt`, compatibility resolution, auto-updates, and why mods aren't supported
+- [Backups and restore](https://github.com/agrawalchaitany/minecraft-server/blob/main/docs/backups.md): consistent online backups and safe restores
+- [Reliability](https://github.com/agrawalchaitany/minecraft-server/blob/main/docs/reliability.md): health checks, watchdog, graceful shutdown, memory, and config validation
+- [Online and offline mode](https://github.com/agrawalchaitany/minecraft-server/blob/main/docs/offline-mode.md): accountless players, username rules, and player data migration
+- [Deployment](https://github.com/agrawalchaitany/minecraft-server/blob/main/docs/deployment.md): Linux servers, macOS, firewalls, and off-site backups
+- [Troubleshooting](https://github.com/agrawalchaitany/minecraft-server/blob/main/docs/troubleshooting.md): symptoms and fixes
+
+## Optional
+
+- [Architecture](https://github.com/agrawalchaitany/minecraft-server/blob/main/docs/architecture.md): how it works, from `make up` to a running server
+- [Edge cases](https://github.com/agrawalchaitany/minecraft-server/blob/main/docs/edge-cases.md): unusual situations and how they're handled
+- [Ready-made compose file](https://github.com/agrawalchaitany/minecraft-server/blob/main/quickstart/compose.yaml): image plus scheduled backups

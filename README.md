@@ -7,6 +7,7 @@
 [![Java](https://img.shields.io/badge/Java-17%20%7C%2021%20%7C%2025%20(auto)-orange?logo=openjdk&logoColor=white)](docs/minecraft-versions.md#how-java-is-chosen)
 [![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker&logoColor=white)](https://docs.docker.com/compose/)
 [![Platforms](https://img.shields.io/badge/platform-linux%2Famd64%20%7C%20linux%2Farm64%20%7C%20macOS-lightgrey)](docs/deployment.md)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
 [Quick start](#quick-start) ·
 [Features](#features) ·
@@ -20,7 +21,7 @@
 
 ---
 
-Run any Minecraft: Java Edition version from 1.17 to the latest, on [Paper](https://papermc.io), with one command. The server restarts itself, saves the world properly, backs up on a schedule, keeps plugins compatible, and refuses settings that would break it.
+A Minecraft server in Docker: run any Minecraft: Java Edition version from 1.17 to the latest, on [Paper](https://papermc.io), with one command. The server restarts itself, saves the world properly, backs up on a schedule, keeps plugins compatible, and refuses settings that would break it.
 
 Everything is built from scratch: no third-party server images or scripts. The only inputs are the official `eclipse-temurin` Java images and the official PaperMC, Mojang, Modrinth, and Hangar download services. Every server and plugin jar is checksum-verified.
 
@@ -202,6 +203,30 @@ tools/       dependency-free Java tools (RCON, versions, plugins, player migrati
 plugins/     plugins.txt and the built-in username-rules plugin
 docs/        documentation
 ```
+
+## FAQ
+
+**How do I host a Minecraft server with Docker?**
+Run the one-line `docker run` command in [Quick start](#quick-start), or use the [compose file](quickstart/compose.yaml) to add scheduled backups. Players connect to your machine's address on port 25565.
+
+**Does it work on a Raspberry Pi, Apple Silicon, or Windows?**
+Yes. The image is built for `linux/amd64` and `linux/arm64`, so it runs on Raspberry Pi 4/5, ARM cloud servers, Apple Silicon Macs, and Windows through Docker Desktop. See [Deployment](docs/deployment.md).
+
+**Can I use plugins like EssentialsX, LuckPerms, or WorldEdit?**
+Yes, any Paper, Spigot, or Bukkit plugin. List them in `plugins.txt` and the plugin manager installs the newest version that works with your Minecraft and Java version, plus required dependencies. See [Plugins](docs/plugins.md).
+
+**Does it support Fabric, Forge, or Bedrock?**
+No. It runs Paper, which loads plugins but not mods, and it is Java Edition only. See [Mods](docs/plugins.md#mods).
+
+**Can players without a Minecraft account join?**
+Yes, with offline mode (`ONLINE_MODE=false`). Username rules are still enforced, and inventories are kept when you switch modes. See [Online and offline mode](docs/offline-mode.md).
+
+**How do I upgrade to a new Minecraft version?**
+Change `MC_VERSION` in `.env` and run `make up`. The world is backed up first, and downgrades that would corrupt it are refused. See [Minecraft versions](docs/minecraft-versions.md).
+
+## License
+
+[MIT](LICENSE). The license covers this project's code, not Minecraft or Paper.
 
 ## Disclaimer
 
